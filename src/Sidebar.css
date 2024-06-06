@@ -54,6 +54,26 @@ nav ul li {
   box-sizing: border-box;
 }
 
+.section_head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section_head span{
+  position: relative;
+}
+
+.section_head span::before{
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: -5px;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
 .section ul {
   display: flex;
 }
