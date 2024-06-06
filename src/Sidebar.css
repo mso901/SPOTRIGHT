@@ -1,0 +1,49 @@
+/** @format */
+
+.sidebar {
+  min-height: 100vh;
+  outline: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 30%;
+}
+
+.header img {
+  padding-top: 5vh;
+  width: 80%;
+}
+
+.header input {
+  margin: 5vh 0 5vh 0;
+  width: 85%;
+  height: 4vh;
+  border-radius: 2.5rem;
+  border: 3px solid #004aad;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 6vh;
+  background-color: #4d9bee;
+}
+nav ul {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+nav ul li {
+  padding-right: 10px;
+  color: white;
+}
