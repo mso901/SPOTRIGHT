@@ -3,6 +3,7 @@
 import logo from './logo.png';
 import './App.css';
 import './Sidebar.css';
+import Data from './Data'
 
 function Sidebar() {
   return (
@@ -19,17 +20,7 @@ function Sidebar() {
           <li>menu4</li>
         </ul>
       </nav>
-      <div className="section">
-        <div className="section_head">
-          <h3>spot 치안</h3>
-          <span>?</span>
-        </div>
-        <ul>
-          <li>cctv</li>
-          <li>보안등</li>
-          <li>거리</li>
-        </ul>
-      </div>
+    <Data/>
     </div>
   );
 }
