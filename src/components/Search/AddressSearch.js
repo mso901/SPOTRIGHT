@@ -11,7 +11,7 @@ function AddressSearch() {
 
   useEffect(() => { 
     localStorage.setItem('address', JSON.stringify(address))
-  }, [keyword])
+  }, [address])
 
   return (
     <>
