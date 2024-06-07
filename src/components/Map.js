@@ -1,6 +1,5 @@
 /** @format */
 
-import "./Map.css";
 import React, { useState, useEffect } from "react";
 import {
 	Map,

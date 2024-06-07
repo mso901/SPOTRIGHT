@@ -1,15 +1,16 @@
 /** @format */
-import Sidebar from "./Sidebar";
+
 import "./App.css";
-import KakaoMap from "./Map";
+import SideBar from "./components/SideBar";
+import KakaoMap from "./components/Map";
 
 function App() {
-	return (
-		<div className="App">
-			<Sidebar />
-			<KakaoMap />
-		</div>
-	);
+  return (
+    <div className="App">
+      <SideBar />
+      <KakaoMap />
+    </div>
+  );
 }
 
 export default App;

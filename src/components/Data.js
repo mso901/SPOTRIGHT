@@ -1,8 +1,5 @@
 /** @format */
 
-import './App.css';
-import './Data.css';
-
 function Data() {
   return (
     <div className="data">

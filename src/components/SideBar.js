@@ -1,16 +1,15 @@
 /** @format */
 
-import logo from './logo.png';
-import './App.css';
-import './Sidebar.css';
-import Data from './Data'
+import logo from '../assets/logo.png';
+import Data from './Data';
+import AddressSearch from './Search/AddressSearch.js';
 
-function Sidebar() {
+function SideBar() {
   return (
     <div className="sidebar">
       <header className="header">
         <img src={logo} className="logo" alt="logo" />
-        <input />
+        <AddressSearch />
       </header>
       <nav>
         <ul>
@@ -20,9 +19,9 @@ function Sidebar() {
           <li>menu4</li>
         </ul>
       </nav>
-    <Data/>
+      <Data />
     </div>
   );
 }
 
-export default Sidebar;
+export default SideBar;
