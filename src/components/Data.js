@@ -1,5 +1,6 @@
 /** @format */
 
+import DataView from "./SideData/DataView.js";
 function Data() {
   return (
     <div className="data">
@@ -8,6 +9,7 @@ function Data() {
           <h3>spot 치안</h3>
           <span>?</span>
         </div>
+        <DataView />
         <ul>
           <li>cctv</li>
           <li>보안등</li>
