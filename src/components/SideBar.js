@@ -1,28 +1,34 @@
 /** @format */
 
-import logo from "../assets/logo.png";
-import Data from "./Data";
-import AddressSearch from "./Search/AddressSearch.js";
-import CustomizedInputBase from "./Search/SearchBar.js";
+import styled from "styled-components"
+import Data from './Data';
+import AddressSearch from './Search/AddressSearch.js';
 
-function SideBar({ setSelectedAddress }) {
-	return (
-		<div className="sidebar">
-			<header className="header">
-				<img src={logo} className="logo" alt="logo" />
-				<CustomizedInputBase setAddress={setSelectedAddress} />
-			</header>
-			<nav>
-				<ul>
-					<li>menu1</li>
-					<li>menu2</li>
-					<li>menu3</li>
-					<li>menu4</li>
-				</ul>
-			</nav>
-			<Data />
-		</div>
-	);
+const Header = styled.div`
+  & img {
+    padding-top: 5vh;
+    width: 80%;
+  }
+`
+
+
+function SideBar() {
+  return (
+    <div className="sidebar">
+      <Header>
+        <AddressSearch />
+      </Header>
+      <nav>
+        <ul>
+          <li>menu1</li>
+          <li>menu2</li>
+          <li>menu3</li>
+          <li>menu4</li>
+        </ul>
+      </nav>
+      <Data />
+    </div>
+  );
 }
 
 export default SideBar;

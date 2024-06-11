@@ -8,6 +8,7 @@ import {
 	ZoomControl,
 	Circle,
 } from "react-kakao-maps-sdk";
+
 const { kakao } = window;
 
 export default function KakaoMap({ currAddr }) {
@@ -84,7 +85,7 @@ export default function KakaoMap({ currAddr }) {
 						lat: centerLocation.latitude,
 						lng: centerLocation.longitude,
 					}}
-					style={{ width: "77.5%", height: "100vh" }}
+					style={{ width: "100%", height: "100vh" }}
 					level={3}
 				>
 					<MapMarker

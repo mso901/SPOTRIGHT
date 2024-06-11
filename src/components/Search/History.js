@@ -3,11 +3,17 @@
 import React from "react"
 import styled from "styled-components"
 
-const ListContainer = styled.ul`
-  width: 300px;
-  height: 100px;
-  border: 1px solid black;
+const StyledHistory = styled.div`
+  position: absolute;
+  top: 9vh;
+  left: 7.5%;
+  width: 85%;
+  background: white;
+  z-index: 10;
+  border: 1px solid gray;
 `
+
+const ListContainer = styled.ul``
 
 const AddressContainer = styled.li``
 
@@ -20,29 +26,31 @@ const RemoveText = styled.span``
 function History({ addresses, onRemoveAddress, onClearAddress }) {
   console.log("address", addresses)
 
-  if (addresses.length === 0) {
-    return <ListContainer>최근 검색된 기록이 없습니다.</ListContainer>
-  }
-
   return (
     <>
-      <ListContainer>
-        {addresses.map(({ id, text }) => {
-          return (
-            <AddressContainer key={id}>
-              <Address>{text}</Address>
-              <RemoveButton
-                onClick={() => {
-                  onRemoveAddress(id)
-                }}
-              >
-                ❌
-              </RemoveButton>
-            </AddressContainer>
-          )
-        })}
-      </ListContainer>
-      <RemoveText onClick={onClearAddress}>전체삭제</RemoveText>
+      <StyledHistory>
+        <ListContainer>
+          {addresses.length === 0 ? (
+            <AddressContainer>최근 검색된 기록이 없습니다.</AddressContainer>
+          ) : (
+            addresses.map(({ id, text }) => (
+              <AddressContainer key={id}>
+                <Address>{text}</Address>
+                <RemoveButton
+                  onClick={() => {
+                    onRemoveAddress(id)
+                  }}
+                >
+                  ❌
+                </RemoveButton>
+              </AddressContainer>
+            ))
+          )}
+        </ListContainer>
+        {addresses.length === 0 ? null : (
+          <RemoveText onClick={onClearAddress}>전체삭제</RemoveText>
+        )}
+      </StyledHistory>
     </>
   )
 }

@@ -1,4 +1,6 @@
-*{
+/** @format */
+
+* {
   box-sizing: border-box;
 }
 
@@ -6,12 +8,12 @@ html {
   font-size: 10px;
 }
 
-body{
+body {
   margin: 0;
   padding: 0;
 }
 
-ul{
+ul {
   margin: 0;
   padding: 0;
 }
@@ -20,17 +22,19 @@ li {
   list-style: none;
 }
 
-.App{
-  display: flex;
-}
-
 .sidebar {
   width: 32.5%;
   min-width: 30rem;
 }
 
-.map{
+.map {
   width: 67.5%;
+}
+
+@media screen and (max-width: 767px) {
+  .map {
+    width: 100%;
+  }
 }
 
 .sidebar {
@@ -41,17 +45,6 @@ li {
   justify-content: flex-start;
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.header img {
-  padding-top: 5vh;
-  width: 80%;
-}
 
 nav {
   display: flex;
@@ -71,41 +64,6 @@ nav ul li {
   color: white;
 }
 
-.data{
+.data {
   width: 100%;
-
-}
-
-.section {
-  padding: 1.5rem;
-  width: 100%;
-}
-
-.section_head {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.section_head span{
-  position: relative;
-}
-
-.section_head span::before{
-  content: "";
-  position: absolute;
-  left: -6px;
-  top: -2px;
-  width: 1.5rem;
-  height: 1.5rem;
-  border: 1px solid black;
-  border-radius: 50%;
-}
-
-.section ul {
-  display: flex;
-}
-
-.section ul li {
-  padding-right: 10px;
 }

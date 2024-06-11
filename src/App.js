@@ -1,20 +1,15 @@
 /** @format */
 
-import "./App.css";
-import SideBar from "./components/SideBar";
-import KakaoMap from "./components/Map";
-import { useState } from "react";
+import "./App.css"
+import { useMediaQuery } from "react-responsive"
+import PC from "./pc"
+import Mobile from "./Mobile"
 
 function App() {
-	const [address, setAddress] = useState("");
+  
+  const isPc = useMediaQuery({ query: "(min-width: 768px)" })
 
-	return (
-		<div className="App">
-			<SideBar setSelectedAddress={setAddress} />
-			<KakaoMap currAddr={address} />
-			{console.log(address)}
-		</div>
-	);
+   return <div className="App">{isPc ? <PC /> : <Mobile />}</div>
 }
 
-export default App;
+export default App
