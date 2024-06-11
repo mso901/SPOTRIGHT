@@ -1,8 +1,9 @@
 /** @format */
 
+import React, { useState } from "react"
 import styled from "styled-components"
 import KakaoMap from "./components/Map"
-import AddressSearch from "./components/Search/AddressSearch.js"
+import SideHead from "./components/SideHead.js"
 import Data from "./components/Data.js"
 
 const MobileWrapper = styled.div`
@@ -12,11 +13,13 @@ const MobileWrapper = styled.div`
 `
 
 function Mobile() {
+  const [address, setAddress] = useState("")
+
   return (
     <>
       <MobileWrapper>
-        <AddressSearch />
-        <KakaoMap currAddr={address}/>
+        <SideHead setSelectedAddress={setAddress} />
+        <KakaoMap currAddr={address} />
         <Data />
       </MobileWrapper>
     </>

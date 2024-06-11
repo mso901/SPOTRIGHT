@@ -1,23 +1,12 @@
 /** @format */
 
-import styled from "styled-components"
 import Data from './Data';
-import AddressSearch from './Search/AddressSearch.js';
-
-const Header = styled.div`
-  & img {
-    padding-top: 5vh;
-    width: 80%;
-  }
-`
-
+import SideHead from "./SideHead.js"
 
 function SideBar() {
   return (
     <div className="sidebar">
-      <Header>
-        <AddressSearch />
-      </Header>
+      <SideHead/>
       <nav>
         <ul>
           <li>menu1</li>
@@ -28,7 +17,7 @@ function SideBar() {
       </nav>
       <Data />
     </div>
-  );
+  )
 }
 
 export default SideBar;
