@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import styled from "styled-components";
 import Paper from "@mui/material/Paper";
@@ -10,6 +10,7 @@ import Modal from "@mui/material/Modal";
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import logo from "../../assets/logo.png";
 
 const { kakao } = window;
 
@@ -69,7 +70,6 @@ const RemoveIcon = styled.span``;
 
 export default function CustomizedInputBase({ setAddress }) {
 	const [zipcode, setZipCode] = useState("");
-	// const [address, setAddress] = useState("");
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => {
@@ -92,17 +92,23 @@ export default function CustomizedInputBase({ setAddress }) {
 		const { address, zonecode } = data;
 		setZipCode(zonecode);
 		setAddress(address);
-		console.log("address", address);
-		console.log("zipcode:", zonecode);
+		// console.log("address", address);
+		// console.log("zipcode:", zonecode);
 		handleClose();
 	};
 
 	return (
 		<div style={{ width: "100%", padding: "1rem" }}>
+			<img
+				src={logo}
+				className="logo"
+				alt="logo"
+				style={{ width: "100%", padding: "2rem" }}
+			/>
 			<Paper
 				component="form"
 				sx={{
-					margin: "1.5rem 0",
+					margin: "1rem 0",
 					p: "2px 4px",
 					display: "flex",
 					alignItems: "center",
