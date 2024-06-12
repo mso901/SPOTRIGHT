@@ -2,7 +2,6 @@
 
 
 import React, { useState, useEffect, useRef } from "react"
-import logo from "../../assets/logo.png"
 import styled from "styled-components"
 import History from "./History.js"
 import SearchBar from "./SearchBar.js"
@@ -10,12 +9,6 @@ import SearchBar from "./SearchBar.js"
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
-
-  & img {
-    padding-top: 5vh;
-    padding-left: 8%;
-    width: 50%;
-  }
 `
 
 function AddressSearch() {
@@ -77,7 +70,6 @@ function AddressSearch() {
   // 자식 컴포넌트에서 setState를 못함. 함수를 선언 후 그 함수를 넘겨줌.
   return (
     <Wrapper ref={wrapperRef}>
-      <img src={logo} className="logo" alt="logo" />
       <SearchBar
         onAddAddress={handleAddAddress}
         onInputClick={handleInputClick}

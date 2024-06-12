@@ -10,7 +10,7 @@ import Modal from "@mui/material/Modal";
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import logo from "../../assets/logo.png";
+
 
 const { kakao } = window;
 
@@ -99,12 +99,6 @@ export default function CustomizedInputBase({ setAddress }) {
 
 	return (
 		<div style={{ width: "100%", padding: "1rem" }}>
-			<img
-				src={logo}
-				className="logo"
-				alt="logo"
-				style={{ width: "100%", padding: "2rem" }}
-			/>
 			<Paper
 				component="form"
 				sx={{
@@ -115,7 +109,7 @@ export default function CustomizedInputBase({ setAddress }) {
 					width: "100%",
 					border: 2,
 					borderColor: "#316BFF",
-					borderRadius: 3,
+					borderRadius: 5,
 				}}
 			>
 				<InputBase
