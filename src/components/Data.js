@@ -14,10 +14,10 @@ const DataSection = styled.section`
     display: flex;
     justify-content: space-between;
   }
-   & .section_head h3{
+  & .section_head h3 {
     font-size: 2rem;
     font-weight: 400;
-   }
+  }
 
   & .section_head span {
     position: relative;
@@ -44,18 +44,10 @@ const DataSection = styled.section`
 `
 
 const StyledChip = muiStyled(Chip)(({ theme }) => ({
-  backgroundColor: "#3498db",
-  color: "#fff",
   fontSize: "1rem",
   height: "24px", // Chip 높이 조정
   "& .MuiChip-label": {
     padding: "0 8px", // 텍스트 패딩 조정
-  },
-  "&:hover": {
-    backgroundColor: "#2980b9", // Hover 색상
-  },
-  "&:active": {
-    backgroundColor: "#3498db", // 클릭 시 색상 변경 방지
   },
 }))
 
@@ -72,13 +64,22 @@ function Data() {
           <span>?</span>
         </div>
         <Stack direction="row" spacing={1}>
-          <StyledChip label="CCTV" onClick={handleClick} />
+          <StyledChip
+            label="CCTV"
+            color="primary"
+            variant="outlined"
+            onClick={handleClick}
+          />
           <StyledChip
             label="보안등"
+            color="primary"
+            variant="outlined"
             onClick={handleClick}
           />
           <StyledChip
             label="거리"
+            color="primary"
+            variant="outlined"
             onClick={handleClick}
           />
         </Stack>
