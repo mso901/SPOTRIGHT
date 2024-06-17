@@ -9,8 +9,7 @@ import Modal from "@mui/material/Modal";
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 
-
-export default function SearchBar({ setAddress }) {
+export default function SearchBar({ setAddress, setSearchHistory }) {
 	const [zipcode, setZipCode] = useState("");
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
@@ -34,6 +33,7 @@ export default function SearchBar({ setAddress }) {
 		const { address, zonecode } = data;
 		setZipCode(zonecode);
 		setAddress(address);
+		setSearchHistory((searchHis) => [...searchHis, address]);
 		// console.log("address", address);
 		// console.log("zipcode:", zonecode);
 		handleClose();
