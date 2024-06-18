@@ -1,24 +1,29 @@
 /** @format */
 
-import { useState } from "react";
 import Data from "./Data";
+import styled from "styled-components"
 import SideHead from "./SideHead.js";
+
+const SideBarContainer = styled.div`
+  width: 42%;
+  min-width: 35rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #e1edfa;
+`
 
 function SideBar({ setAddress }) {
 	return (
-		<div className="sidebar">
-			<SideHead setAddress={setAddress} />
-			<nav>
-				<ul>
-					<li>menu1</li>
-					<li>menu2</li>
-					<li>menu3</li>
-					<li>menu4</li>
-				</ul>
-			</nav>
-			<Data />
-		</div>
-	);
+    <>
+      <SideBarContainer>
+          <SideHead setAddress={setAddress} />
+          <Data />
+      </SideBarContainer>
+    </>
+  )
 }
 
 export default SideBar;

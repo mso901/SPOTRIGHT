@@ -1,38 +1,63 @@
-import React from "react";
-import "./Data.css";
+/** @format */
 
-// api 작성 후 사용될 예정
-// async function getScore(){
-//   fetch('api url').then((res)=> res.json()).then((data)=>{
-//     const score = data.테이블명?;
-//   })
-// }
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import "./Data.css"
 
-// dummy (min 0 ~ max 100)
-const score = 30;
+const fetchScore = async (longitude, latitude, distance, setScore) => {
+  try {
+    console.log("Fetching score...")
+    // const response = await axios.get(`/map/safety-score`, {
+    //   params: {
+    //     longitude: longitude,
+    //     latitude: latitude,
+    //     distance: distance,
+    //   },
+    // })
+    // console.log("Response status:", response.status)
+    // console.log("Response headers:", response.headers)
+    // console.log("Response data:", response.data)
 
-function CheckGrade() {
-  if (score >= 70) {
-    return "green";
-  } else if (score >= 40) {
-    return "yellow";
-  } else {
-    return "red";
+    const score = 30 //response.data
+    setScore(score)
+  } catch (error) {
+    console.error("Error fetching the score:", error)
+    setScore(null)
   }
 }
 
-//View
-function GradeView() {
-  return (
-    <>
-      <h3>종합 점수</h3>
-      <div class="gradeContainer">
-        <div class="gradeImage" id={CheckGrade()}>
-          {score}
-        </div>
-      </div>
-    </>
-  );
+function getGradeDetails(score) {
+  if (score >= 70) {
+    return { color: "green", grade: "1등급" }
+  } else if (score >= 40) {
+    return { color: "yellow", grade: "2등급" }
+  } else {
+    return { color: "red", grade: "3등급" }
+  }
 }
 
-export default GradeView;
+function GradeView({ longitude, latitude, distance }) {
+  const [score, setScore] = useState(null)
+
+  useEffect(() => {
+    fetchScore(longitude, latitude, distance, setScore)
+  }, [longitude, latitude, distance])
+
+  if (score === null) {
+    return <div>Loading...</div> 
+  }
+
+  const { color, grade } = getGradeDetails(score)
+
+  return (
+    <div className="gradeContainer">
+      <div className="gradeImage" id={color}></div>
+      <div className="gradeText">
+        <p>{grade}</p>
+        <p>{score}점</p>
+      </div>
+    </div>
+  )
+}
+
+export default GradeView

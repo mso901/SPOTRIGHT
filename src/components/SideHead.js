@@ -1,184 +1,187 @@
 /** @format */
 
-import * as React from "react";
-import { useState } from "react";
-import { Stack, Chip, Box } from "@mui/material";
-import logo from "../assets/logo.png";
-import styled from "styled-components";
-import SearchBar from "./Search/SearchBar.js";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import DaumPostcode from "react-daum-postcode";
-import Modal from "@mui/material/Modal";
+import * as React from "react"
+import { useState } from "react"
+import { Stack, Chip, Box } from "@mui/material"
+import logo from "../assets/logo.png"
+import styled from "styled-components"
+import SearchBar from "./Search/SearchBar.js"
+import Menu from "@mui/material/Menu"
+import MenuItem from "@mui/material/MenuItem"
+import DaumPostcode from "react-daum-postcode"
+import Modal from "@mui/material/Modal"
+import { styled as muiStyled } from "@mui/material/styles"
 
 const Header = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  background-color: #fff;
+`
 
-	& img {
-		padding-top: 5vh;
-		width: 80%;
-	}
+const HeadInner = styled.div`
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-	@media (max-width: 768px) {
-		align-items: flex-start;
-		& img {
-			padding-left: 8%;
-			width: 50%;
-		}
-	}
-`;
+  & img {
+    padding-top: 5vh;
+    padding-bottom: 2vh;
+    width: 90%;
+  }
 
-const ChipWrapper = styled.div`
-	position: relative;
-	display: inline-block;
-`;
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    & img {
+      padding-top: 3vh;
+      padding-bottom: 1vh;
+      padding-left: 8%;
+      width: 80%;
+    }
+  }
+`
+const Chips = styled.div`
+  display: flex;
+  justify-content: space-between;
+	width: 90%;
+	height: 5rem;
+`
+
+const StyledChip = muiStyled(Chip)(({ theme }) => ({
+  fontSize: "1.2rem",
+  fontWeight: 700,
+  height: "30px", // Chip 높이 조정
+  "& .MuiChip-label": {
+    padding: "0 10px", // 텍스트 패딩 조정
+  },
+}))
 
 function SideHead({ setAddress }) {
-	// const [open, setOpen] = useState(false);
-	const [searchHistory, setSearchHistory] = useState([]);
-	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [zipcode, setZipCode] = useState("");
-	const open = Boolean(anchorEl);
+  // const [open, setOpen] = useState(false);
+  const [searchHistory, setSearchHistory] = useState([])
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [zipcode, setZipCode] = useState("")
+  const open = Boolean(anchorEl)
 
-	const [openAddressSearch, setOpenAddressSearch] = useState(false);
+  const [openAddressSearch, setOpenAddressSearch] = useState(false)
 
-	const closeAddressSearch = () => setOpenAddressSearch(false);
+  const closeAddressSearch = () => setOpenAddressSearch(false)
 
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
 
-	const style = {
-		position: "absolute",
-		top: "50%",
-		left: "50%",
-		transform: "translate(-50%, -50%)",
-		width: 400,
-		bgcolor: "background.paper",
-		border: "2px solid #316BFF",
-		boxShadow: 24,
-		p: 4,
-	};
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #316BFF",
+    boxShadow: 24,
+    p: 4,
+  }
 
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
-	const searchHistoryHandleClose = () => {
-		setAnchorEl(null);
-		setOpenAddressSearch(true);
-	};
+  const searchHistoryHandleClose = () => {
+    setAnchorEl(null)
+    setOpenAddressSearch(true)
+  }
 
-	const handleAddress = (data) => {
-		const { address, zonecode } = data;
-		setZipCode(zonecode);
-		setAddress(address);
-		setSearchHistory((searchHis) => [...searchHis, address]);
-		// console.log("address", address);
-		// console.log("zipcode:", zonecode);
-		handleClose();
-	};
+  const handleAddress = (data) => {
+    const { address, zonecode } = data
+    setZipCode(zonecode)
+    setAddress(address)
+    setSearchHistory((searchHis) => [...searchHis, address])
+    // console.log("address", address);
+    // console.log("zipcode:", zonecode);
+    handleClose()
+  }
 
-	return (
-		<Header>
-			<img src={logo} className="logo" alt="logo" />
-			<SearchBar setAddress={setAddress} setSearchHistory={setSearchHistory} />
-			<Stack
-				direction="row"
-				spacing={1}
-				justifyContent="flex-end"
-				alignItems="flex-start"
-				sx={{ width: "100%", height: "5rem", paddingRight: "2rem" }}
-			>
-				<Chip
-					label="검색 히스토리"
-					onClick={handleClick}
-					sx={{
-						fontSize: "1rem",
-						color: "#fff",
-						backgroundColor: "#1976d2",
-						borderRadius: "2rem",
-					}}
-				/>
-				<Menu
-					id="basic-menu"
-					anchorEl={anchorEl}
-					open={open}
-					onClose={handleClose}
-					MenuListProps={{
-						"aria-labelledby": "basic-button",
-					}}
-				>
-					{searchHistory.length > 0 ? (
-						searchHistory.map((children, search) => {
-							return (
-								<MenuItem
-									className="item_place"
-									style={{ fontSize: "1.3rem" }}
-									aria-label="최근검색"
-									onClick={searchHistoryHandleClose}
-								>
-									{children}
-								</MenuItem>
-							);
-						})
-					) : (
-						<MenuItem onClick={handleClose}>검색한 기록이 없습니다</MenuItem>
-					)}
-				</Menu>
-			</Stack>
-			<Modal open={openAddressSearch} onClose={closeAddressSearch}>
-				<Box sx={style}>
-					<DaumPostcode onComplete={handleAddress} />
-				</Box>
-			</Modal>
-		</Header>
-	);
+  return (
+    <Header>
+      <HeadInner>
+        <img src={logo} className="logo" alt="logo" />
+        <SearchBar
+          setAddress={setAddress}
+          setSearchHistory={setSearchHistory}
+        />
+        <Chips>
+          <Stack direction="row" spacing={1}>
+            <StyledChip
+              label="CCTV"
+              color="primary"
+              variant="outlined"
+              onClick={handleClick}
+            />
+            <StyledChip
+              label="보안등"
+              color="primary"
+              variant="outlined"
+              onClick={handleClick}
+            />
+            <StyledChip
+              label="거리"
+              color="primary"
+              variant="outlined"
+              onClick={handleClick}
+            />
+          </Stack>
+          <Stack
+            direction="row"
+            spacing={1}
+          >
+            <StyledChip
+              label="검색 히스토리"
+              onClick={handleClick}
+              sx={{
+                color: "#fff",
+                backgroundColor: "#1976d2",
+                borderRadius: "2rem",
+              }}
+            />
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              {searchHistory.length > 0 ? (
+                searchHistory.map((children, search) => {
+                  return (
+                    <MenuItem
+                      className="item_place"
+                      style={{ fontSize: "1.3rem" }}
+                      aria-label="최근검색"
+                      onClick={searchHistoryHandleClose}
+                    >
+                      {children}
+                    </MenuItem>
+                  )
+                })
+              ) : (
+                <MenuItem onClick={handleClose}>
+                  검색한 기록이 없습니다
+                </MenuItem>
+              )}
+            </Menu>
+          </Stack>
+        </Chips>
+        <Modal open={openAddressSearch} onClose={closeAddressSearch}>
+          <Box sx={style}>
+            <DaumPostcode onComplete={handleAddress} />
+          </Box>
+        </Modal>
+      </HeadInner>
+    </Header>
+  )
 }
 
-export default SideHead;
-
-/* <ChipWrapper>
-	<Chip label="검색히스토리" color="primary" onClick={handleClick} />
-	{open && (
-		<Box
-			sx={{
-				width: 300,
-				height: "auto",
-				backgroundColor: "#fff",
-				position: "absolute",
-				zIndex: 10,
-				top: "30px",
-				right: "-20px",
-				border: "1px solid grey",
-				borderRadius: "4px",
-				boxShadow: 3,
-				p: 2,
-			}}
-		>
-			{
-				<ul className="search-history">
-					{searchHistory.length > 0 ? (
-						searchHistory.map((children, search) => {
-							return (
-								<li
-									className="item_place"
-									style={{ fontSize: "1.3rem" }}
-									aria-label="최근검색"
-								>
-									{children}
-								</li>
-							);
-						})
-					) : (
-						<li>검색한 기록이 없습니다</li>
-					)}
-				</ul>
-			}
-		</Box>
-	)}
-</ChipWrapper>; */
+export default SideHead

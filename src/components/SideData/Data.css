@@ -1,24 +1,45 @@
+
+
 .gradeContainer {
+  margin: 20px 0 20px;
   width: 100%;
-  height: 20rem;
 }
 .gradeImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
   float: left;
   font-size: 5rem;
-  text-align: center;
+  color: #fff;
+}
+
+.gradeText{
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gradeText p{
+  margin: 0;
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 #green {
-  background-color: rgb(91, 255, 91);
+  background-color: rgb(9, 205, 9);
 }
 
 #yellow {
-  background-color: rgb(255, 244, 149);
+  background-color: rgb(248, 240, 5);
 }
 
 #red {
-  background-color: rgb(255, 141, 96);
+  background-color: rgb(251, 45, 3);
 }

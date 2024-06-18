@@ -40,39 +40,39 @@ export default function SearchBar({ setAddress, setSearchHistory }) {
 	};
 
 	return (
-		<div style={{ width: "100%", padding: "1rem" }}>
-			<Paper
-				component="form"
-				sx={{
-					margin: "1rem 0",
-					p: "2px 4px",
-					display: "flex",
-					alignItems: "center",
-					width: "100%",
-					border: 2,
-					borderColor: "#316BFF",
-					borderRadius: 5,
-				}}
-			>
-				<InputBase
-					sx={{ ml: 1, flex: 1 }}
-					placeholder="장소, 버스, 지하철 도로 검색"
-					inputProps={{ "aria-label": "search google maps" }}
-					onClick={handleOpen}
-				/>
-				<IconButton
-					type="button"
-					sx={{ p: "10px", color: "#004AAD" }}
-					aria-label="search"
-				>
-					<SearchIcon />
-				</IconButton>
-			</Paper>
-			<Modal open={open} onClose={handleClose}>
-				<Box sx={style}>
-					<DaumPostcode onComplete={handleAddress} />
-				</Box>
-			</Modal>
-		</div>
-	);
+    <div style={{ width: "100%", padding: "1rem" }}>
+      <Paper
+        component="form"
+        sx={{
+          margin: "1rem 0",
+          p: "2px 4px",
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+          border: 2,
+          borderColor: "#316BFF",
+          borderRadius: 5,
+        }}
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="장소, 버스, 지하철 도로 검색"
+          inputProps={{ "aria-label": "search google maps" }}
+          onClick={handleOpen}
+        />
+        <IconButton
+          type="button"
+          sx={{ p: "10px", color: "#004AAD" }}
+          aria-label="search"
+        >
+          <SearchIcon/>
+        </IconButton>
+      </Paper>
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={style}>
+          <DaumPostcode onComplete={handleAddress} />
+        </Box>
+      </Modal>
+    </div>
+  )
 }
