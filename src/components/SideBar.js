@@ -15,12 +15,12 @@ const SideBarContainer = styled.div`
   background-color: #e1edfa;
 `
 
-function SideBar({ setAddress }) {
+function SideBar({ setAddress, lon, lat, distance }) {
 	return (
     <>
       <SideBarContainer>
-          <SideHead setAddress={setAddress} />
-          <Data />
+        <SideHead setAddress={setAddress} />
+        <Data lon={lon} lat={lat} distance={distance} />
       </SideBarContainer>
     </>
   )

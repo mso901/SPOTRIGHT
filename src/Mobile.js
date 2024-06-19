@@ -14,13 +14,21 @@ const MobileWrapper = styled.div`
 
 function Mobile() {
   const [address, setAddress] = useState("")
+  const [lon, setLon] = useState("")
+  const [lat, setLat] = useState("")
+  const [distance, setDistance] = useState("")
 
   return (
     <>
       <MobileWrapper>
         <SideHead setSelectedAddress={setAddress} />
-        <KakaoMap currAddr={address} />
-        <Data />
+        <KakaoMap
+          currAddr={address}
+          setLon={setLon}
+          setLat={setLat}
+          setDistance={setDistance}
+        />
+        <Data lon={lon} lat={lat} distance={distance} />
       </MobileWrapper>
     </>
   )

@@ -5,25 +5,31 @@ import axios from "axios"
 import "./Data.css"
 
 const fetchScore = async (longitude, latitude, distance, setScore) => {
+  // const baseUrl = "http://localhost:3000/"
+
   try {
-    console.log("Fetching score...")
-    // const response = await axios.get(`/map/safety-score`, {
+    // const response = await axios.get(`${baseUrl}/map/safety-score`, {
     //   params: {
     //     longitude: longitude,
     //     latitude: latitude,
     //     distance: distance,
     //   },
     // })
-    // console.log("Response status:", response.status)
-    // console.log("Response headers:", response.headers)
-    // console.log("Response data:", response.data)
-
-    const score = 30 //response.data
+    // console.log("res:", response.data)
+    // const score = response.data["Safety_score"]
+    const score = "88"
+    console.log("score:", score)
     setScore(score)
   } catch (error) {
+    console.log("보낸 데이터:", { longitude, latitude, distance })
     console.error("Error fetching the score:", error)
     setScore(null)
   }
+}
+
+function formatCoordinate(value) {
+  const numberValue = Number(value)
+  return parseFloat(numberValue.toFixed(6))
 }
 
 function getGradeDetails(score) {
@@ -36,22 +42,28 @@ function getGradeDetails(score) {
   }
 }
 
-function GradeView({ longitude, latitude, distance }) {
+function GradeView({ lon, lat, distance }) {
   const [score, setScore] = useState(null)
 
   useEffect(() => {
-    fetchScore(longitude, latitude, distance, setScore)
-  }, [longitude, latitude, distance])
+    const longitude1 = formatCoordinate(lon)
+    const latitude2 = formatCoordinate(lat)
+    fetchScore("127.084032", "37.483869", "500", setScore)
+  }, [lon, lat, distance])
 
   if (score === null) {
-    return <div>Loading...</div> 
+    return <div>Loading...</div>
   }
 
   const { color, grade } = getGradeDetails(score)
 
   return (
     <div className="gradeContainer">
-      <div className="gradeImage" id={color}></div>
+      <div className="gradeImageContainer">
+        <div className="gradeImage" id={color}>
+          <span>안전</span>
+        </div>
+      </div>
       <div className="gradeText">
         <p>{grade}</p>
         <p>{score}점</p>

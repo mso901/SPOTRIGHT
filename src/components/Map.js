@@ -49,7 +49,7 @@ async function fetchCCTVData(longitude, latitude, distance) {
 }
 
 // 카카오 맵 함수
-export default function KakaoMap({ address }) {
+export default function KakaoMap({ address, setLon, setLat, setDistance }) {
 	// 현재 위치 (임시 저장)
 	const [centerLocation, setCenterLocation] = useState({
 		latitude: 37.483869,

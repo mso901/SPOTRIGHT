@@ -1,8 +1,15 @@
 
 
 .gradeContainer {
+  display: flex;
   margin: 20px 0 20px;
   width: 100%;
+}
+.gradeImageContainer{
+  width: 50%;
+    display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .gradeImage {
   display: flex;
@@ -13,11 +20,12 @@
   height: 10rem;
   border-radius: 50%;
   float: left;
-  font-size: 5rem;
+  font-size: 3rem;
   color: #fff;
 }
 
 .gradeText{
+  width: 50%;
   height: 10rem;
   display: flex;
   flex-direction: column;
@@ -31,6 +39,15 @@
   font-size: 2rem;
   font-weight: 700;
 }
+  @media (max-width: 768px) {
+    .gradeContainer {
+      margin: 0;
+    }
+    .gradeImage {
+      width: 7rem;
+      height: 7rem;
+    }
+  }
 
 #green {
   background-color: rgb(9, 205, 9);

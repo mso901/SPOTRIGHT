@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Stack, Chip, Box } from "@mui/material";
+import { useMediaQuery } from "react-responsive"
 import logo from "../assets/logo.png";
 import styled from "styled-components";
 import SearchBar from "./Search/SearchBar.js";
@@ -41,11 +42,12 @@ const HeadInner = styled.div`
 	}
 `;
 const Chips = styled.div`
-	display: flex;
-	justify-content: space-between;
-	width: 90%;
-	height: 5rem;
-`;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 95%;
+  height: 5rem;
+`
 
 const StyledChip = muiStyled(Chip)(({ theme }) => ({
 	fontSize: "1.2rem",
@@ -66,6 +68,8 @@ function SideHead({ setAddress }) {
 	const [clickedSearch, setClickedSearch] = useState("");
 
 	const closeAddressSearch = () => setOpenAddressSearch(false);
+
+	const isPc = useMediaQuery({ query: "(min-width: 768px)" })
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -105,7 +109,7 @@ function SideHead({ setAddress }) {
 	return (
 		<Header>
 			<HeadInner>
-				<img src={logo} className="logo" alt="logo" />
+				{isPc?<img src={logo} className="logo" alt="logo" />:null}
 				<SearchBar
 					setAddress={setAddress}
 					setSearchHistory={setSearchHistory}
