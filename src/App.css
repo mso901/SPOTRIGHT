@@ -24,6 +24,9 @@ ul {
 li {
 	list-style: none;
 }
+p{
+	margin: 0;
+}
 
 .map {
 	width: 67.5%;

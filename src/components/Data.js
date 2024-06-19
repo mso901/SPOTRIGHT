@@ -23,11 +23,12 @@ const DataSection = styled.section`
     align-items: center;
   }
   & .section_head h3 {
+    margin: 15px 0 8px;
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 500;
 
     @media (max-width: 768px) {
-      margin: 0;
+      margin: 10px 0 14px;
     }
   }
 
@@ -53,17 +54,23 @@ const ScoreExpButton = styled(IconButton)`
   }
 `
 const ScoreExp = styled.div`
-  margin: auto;
+  margin: 35px auto;
   padding: 10px;
   border: 1px solid #008cda;
   font-size: 11px;
   border-radius: 10px;
   background-color: #fff;
+
+  & p {
+    font-size: 12px;
+    font-weight: 700;
+    padding-bottom: 8px;
+  }
 `
 
 function Data({ lon, lat, distance }) {
   console.log("위치:", lon, lat, distance)
-  
+
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handleClick = (event) => {
@@ -102,18 +109,30 @@ function Data({ lon, lat, distance }) {
             }}
           >
             <Typography sx={{ p: 2 }}>
-              점수산정 기준 // 점수산정 기준 // 점수산정 기준 // 점수산정 기준
-              // 점수산정 기준 // 점수산정 기준 // 점수산정 기준 // 점수산정
-              기준 // 점수산정 기준 // 점수산정 기준
+              <p
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 700,
+                  paddingBottom: "8px",
+                }}
+              >
+                안전점수 계산
+              </p>
+              cctvCount3 = (cctvCount*5) cctvScore = ((cctvCount3) /
+              (cctvCount3+lightCount)) * 0.75; lightScore = (lightCount /
+              (cctvCount3+lightCount)) * 0.25; totalScore = (cctvScore +
+              lightScore) * 1.2 * 100;
             </Typography>
           </Popover>
         </div>
         <GradeView lon={lon} lat={lat} distance={distance} />
         {isPc ? (
           <ScoreExp>
-            점수산정 기준//점수산정 기준//점수산정 기준//점수산정 기준
-            //점수산정 기준 //점수산정 기준 //점수산정 기준 //점수산정 기준
-            //점수산정 기준
+            <p>안전점수 계산</p>
+            cctvCount3 = (cctvCount*5) cctvScore = ((cctvCount3) /
+            (cctvCount3+lightCount)) * 0.75; lightScore = (lightCount /
+            (cctvCount3+lightCount)) * 0.25; totalScore = (cctvScore +
+            lightScore) * 1.2 * 100;
           </ScoreExp>
         ) : null}
       </DataSection>

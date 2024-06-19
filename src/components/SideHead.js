@@ -27,7 +27,7 @@ const HeadInner = styled.div`
 
 	& img {
 		padding-top: 5vh;
-		padding-bottom: 2vh;
+		padding-bottom: 1vh;
 		width: 90%;
 	}
 
@@ -45,7 +45,7 @@ const Chips = styled.div`
   display: flex;
   justify-content: space-between;
   margin: auto;
-  width: 95%;
+  width: 93%;
   height: 5rem;
 `
 

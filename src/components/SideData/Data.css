@@ -1,30 +1,40 @@
-
+/** @format */
 
 .gradeContainer {
   display: flex;
   margin: 20px 0 20px;
   width: 100%;
 }
-.gradeImageContainer{
+.gradeImageContainer {
   width: 50%;
-    display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 .gradeImage {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: 5px;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
+  width: 120px;
+  height: 100px;
+  border-radius: 20px;
   float: left;
-  font-size: 3rem;
+
   color: #fff;
 }
+.gradeImage p {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 32px;
+}
+.gradeImage p:last-child {
+  font-size: 20px;
+}
 
-.gradeText{
+.gradeText {
   width: 50%;
   height: 10rem;
   display: flex;
@@ -33,28 +43,40 @@
   align-items: center;
 }
 
-.gradeText p{
+.gradeText p {
   margin: 0;
-  padding: 10px;
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 15px;
+  line-height: 25px;
+  font-weight: 600;
 }
-  @media (max-width: 768px) {
-    .gradeContainer {
-      margin: 0;
-    }
-    .gradeImage {
-      width: 7rem;
-      height: 7rem;
-    }
+
+@media (max-width: 768px) {
+  .gradeContainer {
+    margin:0 0 10px;
   }
+  .gradeImage {
+    width: 120px;
+    height: 90px;
+  }
+  .gradeImage p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+}
+.gradeImage p:last-child {
+  font-size: 16px;
+   font-weight: 600;
+}
+}
 
 #green {
-  background-color: rgb(9, 205, 9);
+  background-color: rgb(5, 177, 5);
 }
 
 #yellow {
-  background-color: rgb(248, 240, 5);
+  background-color: rgb(251, 243, 2);
+  color: #000;
 }
 
 #red {
