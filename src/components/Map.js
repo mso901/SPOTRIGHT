@@ -1,5 +1,6 @@
 /** @format */
-
+import { atom, useAtom, useSetAtom } from "jotai";
+import { selectedDataType, selectedDistance } from "./SideHead";
 import React, { useState, useEffect } from "react";
 import {
 	Map,
@@ -9,12 +10,24 @@ import {
 	Circle,
 } from "react-kakao-maps-sdk";
 import axios from "axios";
-
+import { selectedAddress } from "./Search/SearchBar";
 const { kakao } = window;
+
+// 임시로 지정한 디폴트 지도 중심 위치
+const defaultLoc = atom({
+	latitude: 37.483869,
+	longitude: 127.084032,
+});
+// 다른 파일에서 사용할 수 있는 지도 중심 위치 데이터
+export const centerLoc = atom((get) => get(defaultLoc));
+
+const dataCnt = atom(0);
+export const selectedDataCount = atom((get) => get(dataCnt));
 
 // 백엔드에서 위도 경도를 소수점 포함 맥시멈 10글자로 제한함
 function formatCoordinate(value) {
-	return parseFloat(value.toFixed(6));
+	const numberValue = Number(value);
+	return parseFloat(numberValue.toFixed(6));
 }
 
 // cctv 데이터 가져오는 함수
@@ -27,15 +40,12 @@ async function fetchCCTVData(longitude, latitude, distance) {
 		baseURL: BASE_URL, // 기본 URL 설정
 	});
 
-	const formattedLongitude = formatCoordinate(longitude);
-	const formattedLatitude = formatCoordinate(latitude);
-
-	// 9-10자리 limit (위도 경도)
+	// 1-10자리 limit (위도 경도)
 	try {
 		const response = await baseInstance.get(`/map/cctv`, {
 			params: {
-				longitude: formattedLongitude,
-				latitude: formattedLatitude,
+				longitude: longitude,
+				latitude: latitude,
 				distance: distance,
 			},
 		});
@@ -43,20 +53,56 @@ async function fetchCCTVData(longitude, latitude, distance) {
 		// console.log("cctv data:", cctvData);
 		return cctvData;
 	} catch (error) {
-		console.log("보낸 데이터:", { longitude, latitude, distance });
+		console.log("맵에서 보낸 데이터:", { longitude, latitude, distance });
 		console.log("cctv 데이터 가져오는데 실패:", error);
 	}
 }
 
-// 카카오 맵 함수
-export default function KakaoMap({ address, setLon, setLat, setDistance }) {
-	// 현재 위치 (임시 저장)
-	const [centerLocation, setCenterLocation] = useState({
-		latitude: 37.483869,
-		longitude: 127.084032,
+// 보안등 데이터 가져오는 함수
+async function fetchSecurityLight(longitude, latitude, distance) {
+	const BASE_URL = "http://localhost:3000/"; // 기본 URL 설정
+
+	const baseInstance = await axios.create({
+		baseURL: BASE_URL, // 기본 URL 설정
 	});
 
-	const [locations, setLocations] = useState([]);
+	// 1-10자리 limit (위도 경도)
+	try {
+		const response = await baseInstance.get(`/map/security-light`, {
+			params: {
+				longitude: longitude,
+				latitude: latitude,
+				distance: distance,
+			},
+		});
+		const securityLight = response.data;
+		return securityLight;
+	} catch (error) {
+		console.log("맵에서 보낸 데이터:", { longitude, latitude, distance });
+		console.log("보안등 데이터 가져오는데 실패:", error);
+	}
+}
+
+// 카카오 맵 함수
+export default function KakaoMap() {
+	const [address] = useAtom(selectedAddress);
+	const [centerLocation, setCenterLocation] = useAtom(defaultLoc); // 현재 위치
+	const [locations, setLocations] = useState([]); //데이터의 위도 경도 json list
+	const [dataType] = useAtom(selectedDataType); // 사용자가 지정한 데이터 타입: cctv, 보안등
+	const [distance] = useAtom(selectedDistance); // 거리: 500m, 1000m
+	const [count, setCount] = useAtom(dataCnt); // 데이터 타입 개수 세기
+
+	useEffect(() => {
+		console.log(
+			"입력하신 위치 " +
+				address +
+				" 로부터 " +
+				distance +
+				"m 이내에 있는 " +
+				dataType +
+				" 데이터를 가져오는 중입니다!"
+		);
+	}, [address, dataType, distance]);
 
 	useEffect(() => {
 		if (address) {
@@ -64,8 +110,10 @@ export default function KakaoMap({ address, setLon, setLat, setDistance }) {
 			let geocoder = new kakao.maps.services.Geocoder();
 			geocoder.addressSearch(address, (result, status) => {
 				if (status === kakao.maps.services.Status.OK) {
-					console.log("converted addr:", result[0]);
-					const { x: longitude, y: latitude } = result[0];
+					// console.log("converted addr:", result[0]);
+					let { x: longitude, y: latitude } = result[0];
+					// longitude = formatCoordinate(longitude);
+					// latitude = formatCoordinate(latitude);
 					setCenterLocation({ latitude, longitude });
 				} else {
 					console.error("Invalid Address: " + status);
@@ -75,39 +123,42 @@ export default function KakaoMap({ address, setLon, setLat, setDistance }) {
 	}, [address]); // 사용자가 입력한 주소가 바뀔 때마다 위도와 경도 받아와서 마커 위치 업데이트 하기
 
 	useEffect(() => {
-		// const newLocations = [
-		// 	{
-		// 		title: "생태연못",
-		// 		latlng: {
-		// 			lat: centerLocation.latitude + 0.001,
-		// 			lng: centerLocation.longitude + 0.0001,
-		// 		},
-		// 	},
-		// 	{
-		// 		title: "텃밭",
-		// 		latlng: {
-		// 			lat: centerLocation.latitude,
-		// 			lng: centerLocation.longitude + 0.002,
-		// 		},
-		// 	},
-		// 	{
-		// 		title: "근린공원",
-		// 		latlng: {
-		// 			lat: centerLocation.latitude - 0.002,
-		// 			lng: centerLocation.longitude,
-		// 		},
-		// 	},
-		// ];
+		const latitude = formatCoordinate(centerLocation.latitude);
+		const longitude = formatCoordinate(centerLocation.longitude);
 
-		fetchCCTVData(centerLocation.longitude, centerLocation.latitude, 500)
-			.then((data) => {
-				setLocations(data);
-				console.log("fetched cctv data:", data);
-			})
-			.catch((error) => {
-				console.log("failed to fetch cctv data:", error);
-			});
-	}, [centerLocation]); // 지도의 중심 위치가 바뀔때마다 중심 위치 기준으로 새로운 데이터 받아오기
+		if (dataType === "CCTV") {
+			console.log("CCTV가 선택되었습니다");
+			console.log("거리:", distance);
+
+			fetchCCTVData(longitude, latitude, distance)
+				.then((data) => {
+					setLocations(data);
+					setCount(data.length);
+					console.log("fetched cctv data:", data);
+					console.log("cctv 개수:", data.length);
+				})
+				.catch((error) => {
+					console.log("cctv 데이터가 없습니다");
+					setCount(0);
+				});
+		} else if (dataType === "보안등") {
+			console.log("보안등이 선택되었습니다");
+			console.log("거리:", distance);
+			console.log("주소:", address);
+
+			fetchSecurityLight(longitude, latitude, distance)
+				.then((data) => {
+					setLocations(data);
+					setCount(data.length);
+					console.log("fetched 보안등 data:", data);
+					console.log("보안등 개수:", data.length);
+				})
+				.catch((error) => {
+					console.log("보안등 데이터가 없습니다");
+					setCount(0);
+				});
+		}
+	}, [centerLocation, dataType, distance]); // 지도의 중심 위치, 데이터 타입, 거리가 바뀔때마다 중심 위치 기준으로 새로운 데이터 받아오기
 
 	return (
 		<>
@@ -131,7 +182,7 @@ export default function KakaoMap({ address, setLon, setLat, setDistance }) {
 							lat: centerLocation.latitude,
 							lng: centerLocation.longitude,
 						}}
-						radius={500}
+						radius={distance}
 						strokeWeight={5} // 선의 두께
 						strokeColor={"#75B8FA"} // 선의 색깔
 						strokeOpacity={1} // 선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명

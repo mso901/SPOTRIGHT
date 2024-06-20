@@ -1,9 +1,9 @@
 /** @format */
-
+import { atom, useAtom } from "jotai";
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Stack, Chip, Box } from "@mui/material";
-import { useMediaQuery } from "react-responsive"
+import { useMediaQuery } from "react-responsive";
 import logo from "../assets/logo.png";
 import styled from "styled-components";
 import SearchBar from "./Search/SearchBar.js";
@@ -12,6 +12,15 @@ import MenuItem from "@mui/material/MenuItem";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "@mui/material/Modal";
 import { styled as muiStyled } from "@mui/material/styles";
+
+// 데이터 타입: cctv, 보안등 둘 중 하나 선택
+const defaultDataType = atom("CCTV");
+// 다른 파일에서 데이터 타입을 읽을 수 있게 export
+export const selectedDataType = atom((get) => get(defaultDataType));
+
+// 거리: 500미터, 1000미터 둘 중 하나 선택
+const defaultDistance = atom(500);
+export const selectedDistance = atom((get) => get(defaultDistance));
 
 const Header = styled.div`
 	background-color: #fff;
@@ -42,12 +51,12 @@ const HeadInner = styled.div`
 	}
 `;
 const Chips = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: auto;
-  width: 93%;
-  height: 5rem;
-`
+	display: flex;
+	justify-content: space-between;
+	margin: auto;
+	width: 93%;
+	height: 5rem;
+`;
 
 const StyledChip = muiStyled(Chip)(({ theme }) => ({
 	fontSize: "1.2rem",
@@ -58,128 +67,152 @@ const StyledChip = muiStyled(Chip)(({ theme }) => ({
 	},
 }));
 
-function SideHead({ setAddress }) {
-	// const [open, setOpen] = useState(false);
-	const [searchHistory, setSearchHistory] = useState([]);
-	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [zipcode, setZipCode] = useState("");
-	const open = Boolean(anchorEl);
-	const [openAddressSearch, setOpenAddressSearch] = useState(false);
-	const [clickedSearch, setClickedSearch] = useState("");
+// 거리 데이터 업데이트: 500m, 1km 둘 중 하나 선택
+const DistanceMenu = ({ anchorEl, handleClose }) => {
+	const [distance, setDistance] = useAtom(defaultDistance);
 
-	const closeAddressSearch = () => setOpenAddressSearch(false);
-
-	const isPc = useMediaQuery({ query: "(min-width: 768px)" })
-
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const style = {
-		position: "absolute",
-		top: "50%",
-		left: "50%",
-		transform: "translate(-50%, -50%)",
-		width: 400,
-		bgcolor: "background.paper",
-		border: "2px solid #316BFF",
-		boxShadow: 24,
-		p: 4,
-	};
-
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
-
-	const searchHistoryHandleClick = (event) => {
-		console.log(event.currentTarget);
-		setClickedSearch(event.currentTarget);
-		setAnchorEl(null);
-		// setOpenAddressSearch(true);
-	};
-
-	const handleAddress = (data) => {
-		const { address, zonecode } = data;
-		setZipCode(zonecode);
-		setAddress(address);
-		setSearchHistory((searchHis) => [...searchHis, address]);
+	const handleDistanceClick = (event) => {
+		// console.log("distance", event.currentTarget.innerText)
+		const distanceValue = parseInt(event.currentTarget.innerText);
+		console.log("distance", distanceValue);
+		setDistance(distanceValue);
 		handleClose();
+	};
+
+	return (
+		<Menu
+			id="basic_distance"
+			anchorEl={anchorEl}
+			open={Boolean(anchorEl)}
+			onClose={handleClose}
+			MenuListProps={{
+				"aria-labelledby": "basic_distance",
+			}}
+		>
+			<MenuItem style={{ fontSize: "1.3rem" }} onClick={handleDistanceClick}>
+				500M
+			</MenuItem>
+			<MenuItem style={{ fontSize: "1.3rem" }} onClick={handleDistanceClick}>
+				1000M
+			</MenuItem>
+		</Menu>
+	);
+};
+
+const SearchHistoryMenu = ({ anchorEl, handleClose, searchHistory }) => {
+	const copyToClipboard = async (text) => {
+		try {
+			await navigator.clipboard.writeText(text);
+			console.log("클립보드에 복사되었습니다:", text);
+		} catch (err) {
+			console.error("클립보드에 복사 실패:", err);
+		}
+	};
+
+	const searchHistoryHandleClick = (event, history) => {
+		copyToClipboard(history);
+		handleClose();
+	};
+
+	return (
+		<Menu
+			id="basic-menu"
+			anchorEl={anchorEl}
+			open={Boolean(anchorEl)}
+			onClose={handleClose}
+			MenuListProps={{
+				"aria-labelledby": "basic-button",
+			}}
+		>
+			{searchHistory.length > 0 ? (
+				searchHistory.map((history, index) => (
+					<MenuItem
+						key={index}
+						style={{ fontSize: "1.3rem" }}
+						onClick={(event) => searchHistoryHandleClick(event, history)}
+					>
+						{history}
+					</MenuItem>
+				))
+			) : (
+				<MenuItem onClick={handleClose}>검색한 기록이 없습니다</MenuItem>
+			)}
+		</Menu>
+	);
+};
+
+function SideHead() {
+	const [searchHistory, setSearchHistory] = useState([]);
+	const [anchorElDistance, setAnchorElDistance] = useState(null);
+	const [anchorElHistory, setAnchorElHistory] = useState(null);
+
+	const [dataType, setDataType] = useAtom(defaultDataType);
+	const [distance, setDistance] = useAtom(defaultDistance);
+
+	const isPc = useMediaQuery({ query: "(min-width: 768px)" });
+
+	const handleDistanceClick = (event) => {
+		setAnchorElDistance(event.currentTarget);
+	};
+
+	const handleHistoryClick = (event) => {
+		setAnchorElHistory(event.currentTarget);
+	};
+
+	const handleCloseDistance = () => {
+		setAnchorElDistance(null);
+	};
+
+	const handleCloseHistory = () => {
+		setAnchorElHistory(null);
 	};
 
 	return (
 		<Header>
 			<HeadInner>
-				{isPc?<img src={logo} className="logo" alt="logo" />:null}
-				<SearchBar
-					setAddress={setAddress}
-					setSearchHistory={setSearchHistory}
-				/>
+				{isPc ? <img src={logo} className="logo" alt="logo" /> : null}
+				<SearchBar setSearchHistory={setSearchHistory} />
 				<Chips>
 					<Stack direction="row" spacing={1}>
 						<StyledChip
 							label="CCTV"
 							color="primary"
 							variant="outlined"
-							onClick={handleClick}
+							onClick={(event) => setDataType(event.currentTarget.innerText)}
 						/>
 						<StyledChip
 							label="보안등"
 							color="primary"
 							variant="outlined"
-							onClick={handleClick}
+							onClick={(event) => setDataType(event.currentTarget.innerText)}
 						/>
 						<StyledChip
 							label="거리"
 							color="primary"
 							variant="outlined"
-							onClick={handleClick}
+							onClick={handleDistanceClick}
+						/>
+						<DistanceMenu
+							anchorEl={anchorElDistance}
+							handleClose={handleCloseDistance}
 						/>
 					</Stack>
 					<Stack direction="row" spacing={1}>
 						<StyledChip
 							label="검색 히스토리"
-							onClick={handleClick}
+							onClick={handleHistoryClick}
 							sx={{
 								color: "#fff",
 								backgroundColor: "#1976d2",
-								borderRadius: "2rem",
 							}}
 						/>
-						<Menu
-							id="basic-menu"
-							anchorEl={anchorEl}
-							open={open}
-							onClose={handleClose}
-							MenuListProps={{
-								"aria-labelledby": "basic-button",
-							}}
-						>
-							{searchHistory.length > 0 ? (
-								searchHistory.map((children, search) => {
-									return (
-										<MenuItem
-											className="item_place"
-											style={{ fontSize: "1.3rem" }}
-											aria-label="최근검색"
-											onClick={searchHistoryHandleClick}
-										>
-											{children}
-										</MenuItem>
-									);
-								})
-							) : (
-								<MenuItem onClick={handleClose}>
-									검색한 기록이 없습니다
-								</MenuItem>
-							)}
-						</Menu>
+						<SearchHistoryMenu
+							anchorEl={anchorElHistory}
+							handleClose={handleCloseHistory}
+							searchHistory={searchHistory}
+						/>
 					</Stack>
 				</Chips>
-				{/* <Modal open={openAddressSearch} onClose={closeAddressSearch}>
-          <Box sx={style}>
-            <DaumPostcode onComplete={handleAddress} />
-          </Box>
-        </Modal> */}
 			</HeadInner>
 		</Header>
 	);

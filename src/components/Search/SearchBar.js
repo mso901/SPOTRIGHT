@@ -1,5 +1,6 @@
 /** @format */
 
+import { atom, useSetAtom } from "jotai";
 import React, { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import Paper from "@mui/material/Paper";
@@ -9,13 +10,19 @@ import Modal from "@mui/material/Modal";
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 
-export default function SearchBar({ setAddress, setSearchHistory }) {
+// 입력한 주소
+export const selectedAddress = atom("");
+// 다른 파일에서 데이터 타입을 읽을 수 있게 export
+// export const selectedAddress = atom((get) => get(address));
+
+export default function SearchBar({ setSearchHistory }) {
 	const [zipcode, setZipCode] = useState("");
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => {
 		setOpen(false);
 	};
+	const setAddress = useSetAtom(selectedAddress);
 
 	const style = {
 		position: "absolute",
