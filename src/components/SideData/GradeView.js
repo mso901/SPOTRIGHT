@@ -14,15 +14,15 @@ function formatCoordinate(value) {
 }
 
 const fetchScore = async (longitude, latitude, distance, setScore) => {
-	const baseUrl =
-    "http://ec2-52-79-135-148.ap-northeast-2.compute.amazonaws.com:3000/" // 베이스 url 설정
+	// const baseUrl =
+  //   "http://ec2-52-79-135-148.ap-northeast-2.compute.amazonaws.com:3000/" // 베이스 url 설정
 	try {
 		console.log("점수 합산 위해 보낸 데이터:", {
 			longitude,
 			latitude,
 			distance,
 		});
-		const response = await axios.get(`${baseUrl}/map/safety-score`, {
+		const response = await axios.get(`/map/safety-score`, {
 			params: {
 				longitude: longitude,
 				latitude: latitude,

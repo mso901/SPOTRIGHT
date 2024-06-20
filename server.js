@@ -9,8 +9,10 @@ const port = process.env.SERVICE_PORT
 const path = require("path")
 const cors = require("cors")
 
+app.use(cors(corsOptions))
+
 const corsOptions = {
-  origin: process.env.MY_WEB_URL, // 환경변수로 설정 예정
+  origin: 'http://localhost:3000', // 환경변수로 설정 예정
   credentials: true,
 }
 
