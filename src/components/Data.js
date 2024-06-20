@@ -1,6 +1,7 @@
 /** @format */
 
-import React, { useState } from "react";
+
+import React, { useState, useEffect  } from "react";
 import styled from "styled-components";
 import GradeView from "./SideData/GradeView.js";
 import { useMediaQuery } from "react-responsive";
@@ -68,8 +69,14 @@ const ScoreExp = styled.div`
 	}
 `;
 
-function Data() {
-	const [anchorEl, setAnchorEl] = useState(null);
+function Data({ lon, lat, distance }) {
+  const [dataLoaded, setDataLoaded] = useState(false) // State to track if data is loaded
+
+  useEffect(() => {
+    if (lon !== null && lat !== null && distance !== null) {
+      setDataLoaded(true) // Set dataLoaded to true when lon, lat, and distance are received
+    }
+  }, [lon, lat, distance])
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -123,7 +130,11 @@ function Data() {
 						</Typography>
 					</Popover>
 				</div>
-				<GradeView />
+				   {dataLoaded ? (
+          <GradeView lon={lon} lat={lat} distance={distance} />
+        ) : (
+          <p>장소를 검색하시면 해당 장소에 치안 등급을 보실 수 있습니다.</p>
+        )}
 				{isPc ? (
 					<ScoreExp>
 						<p>안전점수 계산</p>

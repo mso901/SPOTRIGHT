@@ -14,6 +14,7 @@ function formatCoordinate(value) {
 }
 
 const fetchScore = async (longitude, latitude, distance, setScore) => {
+<<<<<<< HEAD
 	const baseUrl = "http://localhost:3000/"; // 베이스 url 설정
 	try {
 		console.log("점수 합산 위해 보낸 데이터:", {
@@ -42,6 +43,34 @@ const fetchScore = async (longitude, latitude, distance, setScore) => {
 		setScore(null);
 	}
 };
+=======
+  const baseUrl = "http://localhost:3000/"
+
+  try {
+    const response = await axios.get(`${baseUrl}/map/safety-score`, {
+      params: {
+        longitude: longitude,
+        latitude: latitude,
+        distance: distance,
+      },
+    })
+    console.log("res:", response.data)
+    const score = response.data["Safety_score"]
+    // const score = "55"
+    console.log("score:", score)
+    setScore(score)
+  } catch (error) {
+    console.log("보낸 데이터:", { longitude, latitude, distance })
+    console.error("Error fetching the score:", error)
+    setScore(null)
+  }
+}
+
+function formatCoordinate(value) {
+  const numberValue = Number(value)
+  return parseFloat(numberValue.toFixed(6))
+}
+>>>>>>> 4b7f0e3 (반응형 로고, 시작페이지 시도)
 
 function getGradeDetails(score) {
 	if (score >= 70) {

@@ -51,12 +51,12 @@ const HeadInner = styled.div`
 	}
 `;
 const Chips = styled.div`
-	display: flex;
-	justify-content: space-between;
-	margin: auto;
-	width: 93%;
-	height: 5rem;
-`;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px auto 8px;
+  width: 93%;
+  height: 5rem;
+`
 
 const StyledChip = muiStyled(Chip)(({ theme }) => ({
 	fontSize: "1.2rem",
