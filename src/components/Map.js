@@ -11,6 +11,9 @@ import {
 } from "react-kakao-maps-sdk";
 import axios from "axios";
 import { selectedAddress } from "./Search/SearchBar";
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 const { kakao } = window;
 
 // 임시로 지정한 디폴트 지도 중심 위치
@@ -92,17 +95,11 @@ export default function KakaoMap() {
 	const [distance] = useAtom(selectedDistance); // 거리: 500m, 1000m
 	const [count, setCount] = useAtom(dataCnt); // 데이터 타입 개수 세기
 
-	useEffect(() => {
-		console.log(
-			"입력하신 위치 " +
-				address +
-				" 로부터 " +
-				distance +
-				"m 이내에 있는 " +
-				dataType +
-				" 데이터를 가져오는 중입니다!"
-		);
-	}, [address, dataType, distance]);
+  useEffect(() => {
+    toast.info(
+      `입력하신 위치 ${address} 로부터 ${distance}m 이내에 있는 ${dataType} 데이터를 가져오는 중입니다!`
+    )
+  }, [address, dataType, distance])
 
 	useEffect(() => {
 		if (address) {
@@ -127,8 +124,8 @@ export default function KakaoMap() {
 		const longitude = formatCoordinate(centerLocation.longitude);
 
 		if (dataType === "CCTV") {
-			console.log("CCTV가 선택되었습니다");
-			console.log("거리:", distance);
+		 toast.info("CCTV가 선택되었습니다")
+     toast.info(`거리: ${distance}m`)
 
 			fetchCCTVData(longitude, latitude, distance)
 				.then((data) => {
@@ -138,13 +135,13 @@ export default function KakaoMap() {
 					console.log("cctv 개수:", data.length);
 				})
 				.catch((error) => {
-					console.log("cctv 데이터가 없습니다");
+					toast.info(`주변에 cctv가 없습니다`);
 					setCount(0);
 				});
 		} else if (dataType === "보안등") {
-			console.log("보안등이 선택되었습니다");
-			console.log("거리:", distance);
-			console.log("주소:", address);
+			toast.info("보안등이 선택되었습니다")
+			toast.info(`거리: ${distance}m`)
+			toast.info("주소:", address)
 
 			fetchSecurityLight(longitude, latitude, distance)
 				.then((data) => {
@@ -154,7 +151,7 @@ export default function KakaoMap() {
 					console.log("보안등 개수:", data.length);
 				})
 				.catch((error) => {
-					console.log("보안등 데이터가 없습니다");
+					toast.info("주변에 보안등이 없습니다");
 					setCount(0);
 				});
 		}

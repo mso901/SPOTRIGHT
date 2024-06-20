@@ -1,5 +1,6 @@
 /** @format */
-
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import "./App.css"
 import { useMediaQuery } from "react-responsive"
 import PC from "./pc"
@@ -9,7 +10,12 @@ function App() {
   
   const isPc = useMediaQuery({ query: "(min-width: 768px)" })
 
-   return <div className="App">{isPc ? <PC /> : <Mobile />}</div>
+   return (
+     <div className="App">
+       <ToastContainer />
+       {isPc ? <PC /> : <Mobile />}
+     </div>
+   )
 }
 
 export default App

@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import KakaoMap from "./components/Map";
 import SideHead from "./components/SideHead.js";
@@ -13,10 +13,6 @@ const MobileWrapper = styled.div`
 `;
 
 function Mobile() {
-	const [address, setAddress] = useState("");
-	const [lon, setLon] = useState("");
-	const [lat, setLat] = useState("");
-	const [distance, setDistance] = useState("");
 
 	return (
 		<>

@@ -1,16 +1,16 @@
 /** @format */
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import { atom, useAtom } from "jotai";
 import * as React from "react";
-import { useState, useEffect } from "react";
-import { Stack, Chip, Box } from "@mui/material";
+import { useState } from "react";
+import { Stack, Chip } from "@mui/material";
 import { useMediaQuery } from "react-responsive";
 import logo from "../assets/logo.png";
 import styled from "styled-components";
 import SearchBar from "./Search/SearchBar.js";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import DaumPostcode from "react-daum-postcode";
-import Modal from "@mui/material/Modal";
 import { styled as muiStyled } from "@mui/material/styles";
 
 // 데이터 타입: cctv, 보안등 둘 중 하나 선택
@@ -103,9 +103,9 @@ const SearchHistoryMenu = ({ anchorEl, handleClose, searchHistory }) => {
 	const copyToClipboard = async (text) => {
 		try {
 			await navigator.clipboard.writeText(text);
-			console.log("클립보드에 복사되었습니다:", text);
+			toast.success("클립보드에 복사되었습니다:", text);
 		} catch (err) {
-			console.error("클립보드에 복사 실패:", err);
+			toast.error("클립보드에 복사 실패:", err);
 		}
 	};
 
