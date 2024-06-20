@@ -12,7 +12,7 @@ function App() {
 
    return (
      <div className="App">
-       <ToastContainer />
+       <ToastContainer className="toast-container" />
        {isPc ? <PC /> : <Mobile />}
      </div>
    )

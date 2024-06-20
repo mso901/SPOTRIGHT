@@ -32,6 +32,11 @@ p{
 	width: 67.5%;
 }
 
+.toast-container {
+   font-size: 12px;
+}
+
+
 @media screen and (max-width: 767px) {
 	.map {
 		width: 100%;

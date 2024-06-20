@@ -36,7 +36,6 @@
     "client": "set PORT=3001 && react-scripts start",
     "server": "node server.js"
   },
-  "proxy": "http://ec2-3-38-245-219.ap-northeast-2.compute.amazonaws.com:3000",
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -86,7 +86,8 @@ function Data({ lon, lat, distance }) {
     setAnchorEl(null)
   }
 
-  const open = Boolean(anchorEl)
+	const open = Boolean(anchorEl)
+	
   const id = open ? "simple-popover" : undefined
 
   const isPc = useMediaQuery({ query: "(min-width: 768px)" })
