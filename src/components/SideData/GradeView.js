@@ -48,9 +48,9 @@ function getGradeDetails(score) {
   if (score >= 85) {
     return { color: "green", grade: "1등급", safety: "안전" };
   } else if (score >= 75) {
-    return { color: "yellow", grade: "2등급", safety: "주의" };
+    return { color: "yellow", grade: "2등급", safety: "양호" };
   } else if (score >= 60) {
-    return { color: "orange", grade: "3등급", safety: "경고" };
+    return { color: "orange", grade: "3등급", safety: "주의" };
   } else {
     return { color: "red", grade: "4등급", safety: "위험" };
   }
