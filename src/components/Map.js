@@ -90,8 +90,8 @@ async function fetchSecurityLight(longitude, latitude, distance) {
 
 const CircleButton = styled.button`
   position: absolute;
-  top: 50px;
-  right: 50px;
+  top: 8px;
+  right: 125px;
   z-index: 1000;
   display: inline-block;
   width: 50px;
@@ -99,7 +99,7 @@ const CircleButton = styled.button`
   font-size: 21px;
   font-weight: 900;
   border-radius: 50%;
-  background-color: #008cda;
+  background-color: #004aad;
   opacity: 80%;
   border: none;
   color: white; /* 글자색 */
@@ -117,7 +117,7 @@ const CircleButton = styled.button`
   }
 
   @media (max-width: 786px) {
-    top: 20vh;
+    top: 21vh;
     left: 1vh;
     width: 40px;
     height: 40px;
