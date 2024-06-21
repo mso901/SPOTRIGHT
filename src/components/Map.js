@@ -115,6 +115,14 @@ const CircleButton = styled.button`
     font-weight: 400;
     border-radius: 20px;
   }
+
+  @media (max-width: 786px) {
+    top: 20vh;
+    left: 1vh;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
 `;
 
 // 카카오 맵 함수

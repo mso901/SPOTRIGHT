@@ -65,6 +65,11 @@ nav ul li {
   line-height: 23px;
 }
 
+.reactour__close-button{
+	top: 15px !important; 
+	right:15px !important;
+}
+
 .css-2qcmp-MuiButtonBase-root-MuiButton-root:hover {
   background-color: rgb(25 118 210 / 83%) !important;
 }
