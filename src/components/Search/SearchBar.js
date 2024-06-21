@@ -67,7 +67,10 @@ export default function SearchBar({ setSearchHistory }) {
         <InputBase
           sx={{ ml: 1, flex: 1 }}
           placeholder="주소를 검색해주세요."
-          inputProps={{ "aria-label": "search google maps" }}
+          inputProps={{
+            "aria-label": "search google maps",
+            style: { fontSize: "13px" },
+          }}
           onClick={handleOpen}
           startAdornment={
             <InputAdornment position="start">
@@ -95,5 +98,5 @@ export default function SearchBar({ setSearchHistory }) {
         </Box>
       </Modal>
     </div>
-  )
+  );
 }

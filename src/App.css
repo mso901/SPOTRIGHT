@@ -71,6 +71,7 @@ nav ul li {
 }
 
 .Toastify__toast-body{
+  font-size: 14px; 
   white-space: pre-line;
 }
 

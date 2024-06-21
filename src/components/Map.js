@@ -99,7 +99,7 @@ const CircleButton = styled.button`
   font-size: 21px;
   font-weight: 900;
   border-radius: 50%;
-  background-color: #004aad;
+  background-color: #1976d2;
   opacity: 80%;
   border: none;
   color: white; /* 글자색 */
@@ -116,9 +116,9 @@ const CircleButton = styled.button`
     border-radius: 20px;
   }
 
-  @media (max-width: 786px) {
-    top: 21vh;
-    left: 1vh;
+  @media (max-width: 768px) {
+    top: 152px;
+    left: 6px;
     width: 40px;
     height: 40px;
     line-height: 40px;
@@ -175,9 +175,12 @@ export default function KakaoMap() {
           console.log("cctv 개수:", data.length);
         })
         .catch((error) => {
-          toast.info(
+          toast.error(
             `주변에 cctv가 없습니다.
-            (서울 외의 지역은 검색하실 수 없습니다.)`
+            (서울 외의 지역은 검색하실 수 없습니다.)`,
+            {
+              autoClose: 2000,
+            }
           );
           setCount(0);
         });
@@ -194,8 +197,11 @@ export default function KakaoMap() {
           console.log("보안등 개수:", data.length);
         })
         .catch((error) => {
-          toast.info(
-            "주변에 보안등이 없습니다.\n(성동, 동대문, 용산, 송파에는 보안등 데이터가 없습니다.)"
+          toast.error(
+            "주변에 보안등이 없습니다.\n(성동, 동대문, 용산, 송파에는 보안등 데이터가 없습니다.)",
+            {
+              autoClose: 2000,
+            }
           );
           setCount(0);
         });
@@ -211,24 +217,24 @@ export default function KakaoMap() {
 
   return (
     <>
-      <CircleButton
-        data-tour="step-2"
-        className="circle-button"
-        onClick={() => setIsOpen(true)}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <p data-tour="step-1"> {hovered ? "처음이신가요?" : "?"}</p>
-      </CircleButton>
       {centerLocation && (
         <Map
           center={{
             lat: centerLocation.latitude,
             lng: centerLocation.longitude,
           }}
-          style={{ width: "100%", height: "100vh" }}
+          style={{ position: "relative", width: "100%", height: "100vh" }}
           level={3}
         >
+          <CircleButton
+            data-tour="step-2"
+            className="circle-button"
+            onClick={() => setIsOpen(true)}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+          >
+            <p data-tour="step-1"> {hovered ? "처음이신가요?" : "?"}</p>
+          </CircleButton>
           <MapMarker
             position={{
               lat: centerLocation.latitude,

@@ -25,161 +25,163 @@ const defaultDistance = atom(500);
 export const selectedDistance = atom((get) => get(defaultDistance));
 
 const Header = styled.div`
-	background-color: #fff;
+  background-color: #fff;
 `;
 
 const HeadInner = styled.div`
-	width: 90%;
-	margin: auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-	& img {
-		padding-top: 5vh;
-		padding-bottom: 1vh;
-		width: 90%;
-	}
+  & img {
+    padding-top: 5vh;
+    padding-bottom: 1vh;
+    width: 90%;
+  }
 
-	@media (max-width: 768px) {
-		align-items: flex-start;
-		& img {
-			padding-top: 3vh;
-			padding-bottom: 1vh;
-			padding-left: 8%;
-			width: 80%;
-		}
-	}
+  @media (max-width: 768px) {
+    align-items: flex-start;
+height: 146px;
+
+    & img {
+      padding-top: 3vh;
+      padding-bottom: 1vh;
+      padding-left: 8%;
+      width: 80%;
+    }
+  }
 `;
 const Chips = styled.div`
-	display: flex;
-	justify-content: space-between;
-	margin: 5px auto 8px;
-	width: 93%;
-	height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px auto 8px;
+  width: 93%;
+  height: 5rem;
 `;
 
 const StyledChip = muiStyled(Chip)(({ theme }) => ({
-	fontSize: "1.2rem",
-	fontWeight: 700,
-	height: "30px", // Chip 높이 조정
-	"& .MuiChip-label": {
-		padding: "0 10px", // 텍스트 패딩 조정
-	},
+  fontSize: "1.2rem",
+  fontWeight: 700,
+  height: "30px", // Chip 높이 조정
+  "& .MuiChip-label": {
+    padding: "0 10px", // 텍스트 패딩 조정
+  },
 }));
 
 // 거리 데이터 업데이트: 500m, 1km 둘 중 하나 선택
 const DistanceMenu = ({ anchorEl, handleClose }) => {
-	const [distance, setDistance] = useAtom(defaultDistance);
+  const [distance, setDistance] = useAtom(defaultDistance);
 
-	const handleDistanceClick = (event) => {
-		const distanceValue = parseInt(event.currentTarget.innerText);
-		console.log("distance", distanceValue);
-		setDistance(distanceValue);
-		toast.info(`${distanceValue}M로 조회합니다.`);
-		handleClose();
-	};
+  const handleDistanceClick = (event) => {
+    const distanceValue = parseInt(event.currentTarget.innerText);
+    console.log("distance", distanceValue);
+    setDistance(distanceValue);
+    toast.info(`${distanceValue}M로 조회합니다.`, {
+      autoClose: 1000, 
+    });
+    handleClose();
+  };
 
-	return (
-		<Menu
-			id="basic_distance"
-			anchorEl={anchorEl}
-			open={Boolean(anchorEl)}
-			onClose={handleClose}
-			MenuListProps={{
-				"aria-labelledby": "basic_distance",
-			}}
-		>
-			<MenuItem style={{ fontSize: "1.3rem" }} onClick={handleDistanceClick}>
-				500M
-			</MenuItem>
-			<MenuItem style={{ fontSize: "1.3rem" }} onClick={handleDistanceClick}>
-				1000M
-			</MenuItem>
-		</Menu>
-	);
+  return (
+    <Menu
+      id="basic_distance"
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+      MenuListProps={{
+        "aria-labelledby": "basic_distance",
+      }}
+    >
+      <MenuItem style={{ fontSize: "1.3rem" }} onClick={handleDistanceClick}>
+        500M
+      </MenuItem>
+      <MenuItem style={{ fontSize: "1.3rem" }} onClick={handleDistanceClick}>
+        1000M
+      </MenuItem>
+    </Menu>
+  );
 };
 
 const SearchHistoryMenu = ({ anchorEl, handleClose, searchHistory }) => {
-	const copyToClipboard = async (text) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			toast.success("클립보드에 복사되었습니다:", text);
-		} catch (err) {
-			toast.error("클립보드에 복사 실패:", err);
-		}
-	};
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success("클립보드에 복사되었습니다.", {
+        autoClose: 1000,
+      });
+    } catch (err) {
+      toast.error("클립보드에 복사 실패하였습니다.", {
+        autoClose: 1000,
+      });
+    }
+  };
 
-	const searchHistoryHandleClick = (event, history) => {
-		copyToClipboard(history);
-		handleClose();
-	};
+  const searchHistoryHandleClick = (event, history) => {
+    copyToClipboard(history);
+    handleClose();
+  };
 
-	return (
-		<Menu
-			id="basic-menu"
-			anchorEl={anchorEl}
-			open={Boolean(anchorEl)}
-			onClose={handleClose}
-			MenuListProps={{
-				"aria-labelledby": "basic-button",
-			}}
-		>
-			{searchHistory.length > 0 ? (
-				searchHistory.map((history, index) => (
-					<MenuItem
-						key={index}
-						style={{ fontSize: "1.3rem" }}
-						onClick={(event) => searchHistoryHandleClick(event, history)}
-					>
-						{history}
+  return (
+    <Menu
+      id="basic-menu"
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+      MenuListProps={{
+        "aria-labelledby": "basic-button",
+      }}
+    >
+      {searchHistory.length > 0 ? (
+        searchHistory.map((history, index) => (
+          <MenuItem
+            key={index}
+            style={{ fontSize: "1.3rem" }}
+            onClick={(event) => searchHistoryHandleClick(event, history)}
+          >
+            {history}
 
-						<FaRegCopy style={{ marginLeft: "1rem" }} />
-					</MenuItem>
-				))
-			) : (
-				<MenuItem onClick={handleClose}>검색한 기록이 없습니다</MenuItem>
-			)}
-		</Menu>
-	);
+            <FaRegCopy style={{ marginLeft: "1rem" }} />
+          </MenuItem>
+        ))
+      ) : (
+        <MenuItem onClick={handleClose}>검색한 기록이 없습니다</MenuItem>
+      )}
+    </Menu>
+  );
 };
 
 function SideHead() {
-	const [searchHistory, setSearchHistory] = useState([]);
-	const [anchorElDistance, setAnchorElDistance] = useState(null);
-	const [anchorElHistory, setAnchorElHistory] = useState(null);
+  const [searchHistory, setSearchHistory] = useState([]);
+  const [anchorElDistance, setAnchorElDistance] = useState(null);
+  const [anchorElHistory, setAnchorElHistory] = useState(null);
 
-	const [dataType, setDataType] = useAtom(defaultDataType);
-	const [distance, setDistance] = useAtom(defaultDistance);
+  const [dataType, setDataType] = useAtom(defaultDataType);
+  const [distance, setDistance] = useAtom(defaultDistance);
 
-	const isPc = useMediaQuery({ query: "(min-width: 768px)" });
+  const isPc = useMediaQuery({ query: "(min-width: 768px)" });
 
-	const handleDistanceClick = (event) => {
-		setAnchorElDistance(event.currentTarget);
-	};
+  const handleDistanceClick = (event) => {
+    setAnchorElDistance(event.currentTarget);
+  };
 
-	const handleHistoryClick = (event) => {
-		setAnchorElHistory(event.currentTarget);
-	};
+  const handleHistoryClick = (event) => {
+    setAnchorElHistory(event.currentTarget);
+  };
 
-	const handleCloseDistance = () => {
-		setAnchorElDistance(null);
-	};
+  const handleCloseDistance = () => {
+    setAnchorElDistance(null);
+  };
 
-	const handleCloseHistory = () => {
-		setAnchorElHistory(null);
-	};
-	const handleChipClick = (event) => {
-		const dataType = event.currentTarget.innerText;
-		setDataType(dataType);
-		toast.info(`${dataType} 선택되었습니다`);
-	};
+  const handleCloseHistory = () => {
+    setAnchorElHistory(null);
+  };
 
   return (
     <Header>
       <HeadInner>
-       
         {isPc ? <img src={logo} className="logo" alt="logo" /> : null}
         <SearchBar setSearchHistory={setSearchHistory} />
         <Chips data-tour="step-4">
@@ -189,8 +191,7 @@ function SideHead() {
               color="primary"
               variant="outlined"
               onClick={(event) => {
-                setDataType(event.currentTarget.innerText)
-                handleChipClick(event)
+                setDataType(event.currentTarget.innerText);
               }}
             />
             <StyledChip
@@ -198,8 +199,7 @@ function SideHead() {
               color="primary"
               variant="outlined"
               onClick={(event) => {
-                setDataType(event.currentTarget.innerText)
-                handleChipClick(event)
+                setDataType(event.currentTarget.innerText);
               }}
             />
             <StyledChip
@@ -231,7 +231,7 @@ function SideHead() {
         </Chips>
       </HeadInner>
     </Header>
-  )
+  );
 }
 
 export default SideHead;
