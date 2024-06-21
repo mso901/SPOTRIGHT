@@ -51,7 +51,7 @@ export default function SearchBar({ setSearchHistory }) {
   return (
     <div style={{ width: "100%", padding: "1rem" }}>
       <Paper
-        data-tour="step-1"
+        data-tour="step-3"
         component="form"
         sx={{
           margin: "1rem 0",
@@ -66,7 +66,7 @@ export default function SearchBar({ setSearchHistory }) {
       >
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="장소, 버스, 지하철 도로 검색"
+          placeholder="주소를 검색해주세요."
           inputProps={{ "aria-label": "search google maps" }}
           onClick={handleOpen}
           startAdornment={

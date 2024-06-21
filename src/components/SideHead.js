@@ -176,61 +176,62 @@ function SideHead() {
 		toast.info(`${dataType} 선택되었습니다`);
 	};
 
-	return (
-		<Header>
-			<HeadInner>
-				{isPc ? <img src={logo} className="logo" alt="logo" /> : null}
-				<SearchBar setSearchHistory={setSearchHistory} />
-				<Chips data-tour="step-2">
-					<Stack direction="row" spacing={1}>
-						<StyledChip
-							label="CCTV"
-							color="primary"
-							variant="outlined"
-							onClick={(event) => {
-								setDataType(event.currentTarget.innerText);
-								handleChipClick(event);
-							}}
-						/>
-						<StyledChip
-							label="보안등"
-							color="primary"
-							variant="outlined"
-							onClick={(event) => {
-								setDataType(event.currentTarget.innerText);
-								handleChipClick(event);
-							}}
-						/>
-						<StyledChip
-							label="거리"
-							color="primary"
-							variant="outlined"
-							onClick={handleDistanceClick}
-						/>
-						<DistanceMenu
-							anchorEl={anchorElDistance}
-							handleClose={handleCloseDistance}
-						/>
-					</Stack>
-					<Stack direction="row" spacing={1}>
-						<StyledChip
-							label="검색 히스토리"
-							onClick={handleHistoryClick}
-							sx={{
-								color: "#fff",
-								backgroundColor: "#1976d2",
-							}}
-						/>
-						<SearchHistoryMenu
-							anchorEl={anchorElHistory}
-							handleClose={handleCloseHistory}
-							searchHistory={searchHistory}
-						/>
-					</Stack>
-				</Chips>
-			</HeadInner>
-		</Header>
-	);
+  return (
+    <Header>
+      <HeadInner>
+       
+        {isPc ? <img src={logo} className="logo" alt="logo" /> : null}
+        <SearchBar setSearchHistory={setSearchHistory} />
+        <Chips data-tour="step-4">
+          <Stack direction="row" spacing={1}>
+            <StyledChip
+              label="CCTV"
+              color="primary"
+              variant="outlined"
+              onClick={(event) => {
+                setDataType(event.currentTarget.innerText)
+                handleChipClick(event)
+              }}
+            />
+            <StyledChip
+              label="보안등"
+              color="primary"
+              variant="outlined"
+              onClick={(event) => {
+                setDataType(event.currentTarget.innerText)
+                handleChipClick(event)
+              }}
+            />
+            <StyledChip
+              label="거리"
+              color="primary"
+              variant="outlined"
+              onClick={handleDistanceClick}
+            />
+            <DistanceMenu
+              anchorEl={anchorElDistance}
+              handleClose={handleCloseDistance}
+            />
+          </Stack>
+          <Stack direction="row" spacing={1}>
+            <StyledChip
+              label="검색 히스토리"
+              onClick={handleHistoryClick}
+              sx={{
+                color: "#fff",
+                backgroundColor: "#1976d2",
+              }}
+            />
+            <SearchHistoryMenu
+              anchorEl={anchorElHistory}
+              handleClose={handleCloseHistory}
+              searchHistory={searchHistory}
+            />
+          </Stack>
+        </Chips>
+      </HeadInner>
+    </Header>
+  )
 }
 
 export default SideHead;

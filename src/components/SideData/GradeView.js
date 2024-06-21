@@ -45,9 +45,9 @@ const fetchScore = async (longitude, latitude, distance, setScore) => {
 };
 
 function getGradeDetails(score) {
-  if (score >= 70) {
+  if (score >= 85) {
     return { color: "green", grade: "1등급", safety: "안전" };
-  } else if (score >= 40) {
+  } else if (score >= 70) {
     return { color: "yellow", grade: "2등급", safety: "주의" };
   } else {
     return { color: "red", grade: "3등급", safety: "경고" };
@@ -79,7 +79,7 @@ function GradeView() {
 
   return (
     <div className="gradeContainer">
-      <div data-tour="step-3" className="gradeImageContainer">
+      <div data-tour="step-5" className="gradeImageContainer">
         <div className="gradeImage" id={color}>
           <p>{safety}</p>
           <p>
@@ -87,7 +87,7 @@ function GradeView() {
           </p>
         </div>
       </div>
-      <div data-tour="step-4" className="gradeText">
+      <div data-tour="step-6" className="gradeText">
         <p>반경 {distance}M</p>
         <p>
           {dataType === "CCTV"

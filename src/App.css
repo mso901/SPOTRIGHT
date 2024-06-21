@@ -70,6 +70,10 @@ nav ul li {
 	right:15px !important;
 }
 
+.Toastify__toast-body{
+  white-space: pre-line;
+}
+
 .css-2qcmp-MuiButtonBase-root-MuiButton-root:hover {
   background-color: rgb(25 118 210 / 83%) !important;
 }
