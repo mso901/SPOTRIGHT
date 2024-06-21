@@ -7,26 +7,17 @@ require("dotenv").config()
 const port = process.env.SERVICE_PORT
 
 const path = require("path")
-const cors = require("cors")
-
-app.use(cors(corsOptions))
-
-const corsOptions = {
-  origin: 'http://localhost:3000', // 환경변수로 설정 예정
-  credentials: true,
-}
 
 const mapRouter = require("./src/Controller/map")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(express.static(path.join(__dirname, "/build")))
-app.use(cors(corsOptions)) // 옵션에 설정한 URL에서 제한 없이 요청을 보내고 응답을 받을 수 있습니다.
+app.use(express.static(path.join(dirname, "/build")))
 
 app.use("/map", mapRouter)
 
 app.get("/", (req, res, next) => {
-  res.sendFile(path.join(__dirname, "/build/index.html"))
+  res.sendFile(path.join(dirname, "/build/index.html"))
 })
 
 app.use((req, res, next) => {
