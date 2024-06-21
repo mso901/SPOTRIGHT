@@ -67,6 +67,10 @@ const StyledChip = muiStyled(Chip)(({ theme }) => ({
 	"& .MuiChip-label": {
 		padding: "0 10px", // 텍스트 패딩 조정
 	},
+	"&.selected": {
+		backgroundColor: "#1976d2",
+		color: "white",
+	},
 }));
 
 // 거리 데이터 업데이트: 500m, 1km 둘 중 하나 선택
@@ -151,7 +155,6 @@ function SideHead() {
 	const [anchorElHistory, setAnchorElHistory] = useState(null);
 
 	const [dataType, setDataType] = useAtom(defaultDataType);
-	const [distance, setDistance] = useAtom(defaultDistance);
 
 	const isPc = useMediaQuery({ query: "(min-width: 768px)" });
 
@@ -170,68 +173,71 @@ function SideHead() {
 	const handleCloseHistory = () => {
 		setAnchorElHistory(null);
 	};
-	const handleChipClick = (event) => {
+	const handleDataTypeSelection = (event) => {
 		const dataType = event.currentTarget.innerText;
 		setDataType(dataType);
 		toast.info(`${dataType} 선택되었습니다`);
 	};
 
-  return (
-    <Header>
-      <HeadInner>
-       
-        {isPc ? <img src={logo} className="logo" alt="logo" /> : null}
-        <SearchBar setSearchHistory={setSearchHistory} />
-        <Chips data-tour="step-4">
-          <Stack direction="row" spacing={1}>
-            <StyledChip
-              label="CCTV"
-              color="primary"
-              variant="outlined"
-              onClick={(event) => {
-                setDataType(event.currentTarget.innerText)
-                handleChipClick(event)
-              }}
-            />
-            <StyledChip
-              label="보안등"
-              color="primary"
-              variant="outlined"
-              onClick={(event) => {
-                setDataType(event.currentTarget.innerText)
-                handleChipClick(event)
-              }}
-            />
-            <StyledChip
-              label="거리"
-              color="primary"
-              variant="outlined"
-              onClick={handleDistanceClick}
-            />
-            <DistanceMenu
-              anchorEl={anchorElDistance}
-              handleClose={handleCloseDistance}
-            />
-          </Stack>
-          <Stack direction="row" spacing={1}>
-            <StyledChip
-              label="검색 히스토리"
-              onClick={handleHistoryClick}
-              sx={{
-                color: "#fff",
-                backgroundColor: "#1976d2",
-              }}
-            />
-            <SearchHistoryMenu
-              anchorEl={anchorElHistory}
-              handleClose={handleCloseHistory}
-              searchHistory={searchHistory}
-            />
-          </Stack>
-        </Chips>
-      </HeadInner>
-    </Header>
-  )
+	return (
+		<Header>
+			<HeadInner>
+				{isPc ? (
+					<img src={logo} className="logo" alt="logo" data-tour="step-0" />
+				) : null}
+				<SearchBar setSearchHistory={setSearchHistory} />
+				<Chips data-tour="step-4">
+					<Stack direction="row" spacing={1}>
+						<StyledChip
+							label="CCTV"
+							color="primary"
+							variant="outlined"
+							className={dataType === "CCTV" ? "selected" : "unselected"}
+							onClick={(event) => {
+								setDataType(event.currentTarget.innerText);
+								handleDataTypeSelection(event);
+							}}
+						/>
+						<StyledChip
+							label="보안등"
+							color="primary"
+							variant="outlined"
+							className={dataType === "보안등" ? "selected" : "unselected"}
+							onClick={(event) => {
+								setDataType(event.currentTarget.innerText);
+								handleDataTypeSelection(event);
+							}}
+						/>
+						<StyledChip
+							label="거리"
+							color="primary"
+							variant="outlined"
+							onClick={handleDistanceClick}
+						/>
+						<DistanceMenu
+							anchorEl={anchorElDistance}
+							handleClose={handleCloseDistance}
+						/>
+					</Stack>
+					<Stack direction="row" spacing={1}>
+						<StyledChip
+							label="검색 히스토리"
+							onClick={handleHistoryClick}
+							sx={{
+								color: "#fff",
+								backgroundColor: "#1976d2",
+							}}
+						/>
+						<SearchHistoryMenu
+							anchorEl={anchorElHistory}
+							handleClose={handleCloseHistory}
+							searchHistory={searchHistory}
+						/>
+					</Stack>
+				</Chips>
+			</HeadInner>
+		</Header>
+	);
 }
 
 export default SideHead;
