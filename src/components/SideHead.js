@@ -13,6 +13,7 @@ import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 import { styled as muiStyled } from "@mui/material/styles"
 
+
 // 데이터 타입: cctv, 보안등 둘 중 하나 선택
 const defaultDataType = atom("CCTV")
 // 다른 파일에서 데이터 타입을 읽을 수 있게 export
@@ -143,6 +144,7 @@ const SearchHistoryMenu = ({ anchorEl, handleClose, searchHistory }) => {
 }
 
 function SideHead() {
+ 
   const [searchHistory, setSearchHistory] = useState([])
   const [anchorElDistance, setAnchorElDistance] = useState(null)
   const [anchorElHistory, setAnchorElHistory] = useState(null)
@@ -176,9 +178,10 @@ function SideHead() {
   return (
     <Header>
       <HeadInner>
+       
         {isPc ? <img src={logo} className="logo" alt="logo" /> : null}
         <SearchBar setSearchHistory={setSearchHistory} />
-        <Chips>
+        <Chips data-tour="step-2">
           <Stack direction="row" spacing={1}>
             <StyledChip
               label="CCTV"

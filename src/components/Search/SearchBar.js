@@ -51,6 +51,7 @@ export default function SearchBar({ setSearchHistory }) {
   return (
     <div style={{ width: "100%", padding: "1rem" }}>
       <Paper
+        data-tour="step-1"
         component="form"
         sx={{
           margin: "1rem 0",
