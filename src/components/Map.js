@@ -135,7 +135,7 @@ export default function KakaoMap() {
         })
         .catch((error) => {
           toast.info(
-            `주변에 cctv가 없습니다.\n(서울 외의 지역은 검색하실 수 없습니다.)`
+            "주변에 cctv가 없습니다.\n(서울 외의 지역은 검색하실 수 없습니다.)"
           )
           setCount(0)
         })
@@ -153,7 +153,7 @@ export default function KakaoMap() {
         })
         .catch((error) => {
           toast.info(
-            `주변에 보안등이 없습니다.\n(성동, 동대문, 용산, 송파에는 보안등 데이터가 없습니다.)`
+            "주변에 보안등이 없습니다.\n(성동, 동대문, 용산, 송파에는 보안등 데이터가 없습니다.)"
           )
           setCount(0)
         })

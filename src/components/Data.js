@@ -58,6 +58,7 @@ const ScoreExp = styled.div`
   padding: 10px;
   border: 1px solid #008cda;
   font-size: 11px;
+  line-height: 15px;
   border-radius: 10px;
   background-color: #fff;
 
@@ -70,11 +71,11 @@ const ScoreExp = styled.div`
 
 function Data({ lon, lat, distance }) {
   const [anchorEl, setAnchorEl] = useState(null)
-  const [dataLoaded, setDataLoaded] = useState(false) 
+  const [dataLoaded, setDataLoaded] = useState(false)
 
   useEffect(() => {
     if (lon !== null && lat !== null && distance !== null) {
-      setDataLoaded(true) 
+      setDataLoaded(true)
     }
   }, [lon, lat, distance])
 
@@ -86,8 +87,8 @@ function Data({ lon, lat, distance }) {
     setAnchorEl(null)
   }
 
-	const open = Boolean(anchorEl)
-	
+  const open = Boolean(anchorEl)
+
   const id = open ? "simple-popover" : undefined
 
   const isPc = useMediaQuery({ query: "(min-width: 768px)" })
@@ -119,30 +120,23 @@ function Data({ lon, lat, distance }) {
                 style={{
                   fontSize: "12px",
                   fontWeight: 700,
+                  lineHeight:"15px",
                   paddingBottom: "8px",
                 }}
               >
                 안전점수 계산
               </p>
-              cctvCount3 = (cctvCount*5) cctvScore = ((cctvCount3) /
-              (cctvCount3+lightCount)) * 0.75; lightScore = (lightCount /
-              (cctvCount3+lightCount)) * 0.25; totalScore = (cctvScore +
-              lightScore) * 1.2 * 100;
+              안전점수 계산에는 cctv와 보안등의 개수를 이용하였으며 cctv에 더
+              많은 안전 가중치를 부여하여 점수를 도출하였습니다.
             </Typography>
           </Popover>
         </div>
-        {dataLoaded ? (
-          <GradeView lon={lon} lat={lat} distance={distance} />
-        ) : (
-          <p>장소를 검색하시면 해당 장소에 치안 등급을 보실 수 있습니다.</p>
-        )}
+        <GradeView lon={lon} lat={lat} distance={distance} />
         {isPc ? (
           <ScoreExp>
             <p>안전점수 계산</p>
-            cctvCount3 = (cctvCount*5) cctvScore = ((cctvCount3) /
-            (cctvCount3+lightCount)) * 0.75; lightScore = (lightCount /
-            (cctvCount3+lightCount)) * 0.25; totalScore = (cctvScore +
-            lightScore) * 1.2 * 100;
+            안전점수 계산에는 cctv와 보안등의 개수를 이용하였으며 cctv에 더 많은
+            안전 가중치를 부여하여 점수를 도출하였습니다.
           </ScoreExp>
         ) : null}
       </DataSection>
