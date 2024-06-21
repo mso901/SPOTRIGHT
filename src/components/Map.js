@@ -39,15 +39,15 @@ function formatCoordinate(value) {
 // http://kdt-ai-10-team01.elicecoding.com
 // http://kdt-ai-10-team01.elicecoding.com:3000/map/cctv?longitude=127.084032&latitude=37.483869&distance=1000
 async function fetchCCTVData(longitude, latitude, distance) {
-  const BASE_URL = "/api"; // 기본 URL 설정
+  // const BASE_URL = "/api"; // 기본 URL 설정
 
-  const baseInstance = await axios.create({
-    baseURL: BASE_URL, // 기본 URL 설정
-  });
+  // const baseInstance = await axios.create({
+  //   baseURL: BASE_URL, // 기본 URL 설정
+  // });
 
   // 1-10자리 limit (위도 경도)
   try {
-    const response = await baseInstance.get(`/map/cctv`, {
+    const response = await axios.get(`/map/cctv`, {
       params: {
         longitude: longitude,
         latitude: latitude,
@@ -65,15 +65,15 @@ async function fetchCCTVData(longitude, latitude, distance) {
 
 // 보안등 데이터 가져오는 함수
 async function fetchSecurityLight(longitude, latitude, distance) {
-  const BASE_URL = "/api"; // 기본 URL 설정
+  // const BASE_URL = "/api"; // 기본 URL 설정
 
-  const baseInstance = await axios.create({
-    baseURL: BASE_URL, // 기본 URL 설정
-  });
+  // const baseInstance = await axios.create({
+  //   baseURL: BASE_URL, // 기본 URL 설정
+  // });
 
   // 1-10자리 limit (위도 경도)
   try {
-    const response = await baseInstance.get(`/map/security-light`, {
+    const response = await axios.get(`/map/security-light`, {
       params: {
         longitude: longitude,
         latitude: latitude,

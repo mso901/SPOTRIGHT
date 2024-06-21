@@ -14,7 +14,7 @@ function formatCoordinate(value) {
 }
 
 const fetchScore = async (longitude, latitude, distance, setScore) => {
-  const BASE_URL = "/api"; // 베이스 url 설정
+  // const BASE_URL = "/api"; // 베이스 url 설정
 
   try {
     console.log("점수 합산 위해 보낸 데이터:", {
@@ -22,7 +22,7 @@ const fetchScore = async (longitude, latitude, distance, setScore) => {
       latitude,
       distance,
     });
-    const response = await axios.get(`${BASE_URL}/map/safety-score`, {
+    const response = await axios.get(`/map/safety-score`, {
       params: {
         longitude: longitude,
         latitude: latitude,
