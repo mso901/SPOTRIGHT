@@ -1,11 +1,11 @@
 /** @format */
 
-import React, { useState, useEffect } from "react"
-import styled from "styled-components"
-import GradeView from "./SideData/GradeView.js"
-import { useMediaQuery } from "react-responsive"
-import { Popover, IconButton, Typography } from "@mui/material"
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
+import React, { useState } from "react";
+import styled from "styled-components";
+import GradeView from "./SideData/GradeView.js";
+import { useMediaQuery } from "react-responsive";
+import { Popover, IconButton, Typography } from "@mui/material";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 const DataSection = styled.section`
   margin: 0 auto;
@@ -39,7 +39,7 @@ const DataSection = styled.section`
   & ul li {
     padding-right: 10px;
   }
-`
+`;
 
 const ScoreExpButton = styled(IconButton)`
   margin: auto;
@@ -52,7 +52,7 @@ const ScoreExpButton = styled(IconButton)`
   & .MuiSvgIcon-root {
     font-size: 2rem; // 아이콘 크기 조정
   }
-`
+`;
 const ScoreExp = styled.div`
   margin: 35px auto;
   padding: 10px;
@@ -67,31 +67,24 @@ const ScoreExp = styled.div`
     font-weight: 700;
     padding-bottom: 8px;
   }
-`
+`;
 
-function Data({ lon, lat, distance }) {
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [dataLoaded, setDataLoaded] = useState(false)
-
-  useEffect(() => {
-    if (lon !== null && lat !== null && distance !== null) {
-      setDataLoaded(true)
-    }
-  }, [lon, lat, distance])
+function Data() {
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
-  const open = Boolean(anchorEl)
+  const open = Boolean(anchorEl);
 
-  const id = open ? "simple-popover" : undefined
+  const id = open ? "simple-popover" : undefined;
 
-  const isPc = useMediaQuery({ query: "(min-width: 768px)" })
+  const isPc = useMediaQuery({ query: "(min-width: 768px)" });
 
   return (
     <>
@@ -120,28 +113,28 @@ function Data({ lon, lat, distance }) {
                 style={{
                   fontSize: "12px",
                   fontWeight: 700,
-                  lineHeight:"15px",
+                  lineHeight: "15px",
                   paddingBottom: "8px",
                 }}
               >
-                안전점수 계산
+                치안점수 계산
               </p>
-              안전점수 계산에는 cctv와 보안등의 개수를 이용하였으며 cctv에 더
-              많은 안전 가중치를 부여하여 점수를 도출하였습니다.
+              치안점수 계산에는 cctv와 보안등의 개수를 이용하였으며 cctv에 더
+              많은 치안 가중치를 부여하여 점수를 도출하였습니다.
             </Typography>
           </Popover>
         </div>
-        <GradeView lon={lon} lat={lat} distance={distance} />
+        <GradeView />
         {isPc ? (
           <ScoreExp>
-            <p>안전점수 계산</p>
-            안전점수 계산에는 cctv와 보안등의 개수를 이용하였으며 cctv에 더 많은
-            안전 가중치를 부여하여 점수를 도출하였습니다.
+            <p>치안점수 계산</p>
+            치안점수 계산에는 cctv와 보안등의 개수를 이용하였으며 cctv에 더 많은
+            치안 가중치를 부여하여 점수를 도출하였습니다.
           </ScoreExp>
         ) : null}
       </DataSection>
     </>
-  )
+  );
 }
 
-export default Data
+export default Data;

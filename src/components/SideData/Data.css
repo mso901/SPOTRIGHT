@@ -52,22 +52,22 @@
 
 @media (max-width: 768px) {
   .gradeContainer {
-    margin:0 0 10px;
+    margin: 0 0 10px;
   }
   .gradeImage {
     width: 120px;
     height: 90px;
   }
   .gradeImage p {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 32px;
-}
-.gradeImage p:last-child {
-  font-size: 16px;
-   font-weight: 600;
-}
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 32px;
+  }
+  .gradeImage p:last-child {
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
 
 #green {
@@ -77,6 +77,10 @@
 #yellow {
   background-color: rgb(251, 243, 2);
   color: #000;
+}
+
+#orange {
+  background-color: rgb(251, 189, 3);
 }
 
 #red {

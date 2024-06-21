@@ -227,13 +227,12 @@ export default function KakaoMap() {
           level={3}
         >
           <CircleButton
-            data-tour="step-2"
             className="circle-button"
             onClick={() => setIsOpen(true)}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
           >
-            <p data-tour="step-1"> {hovered ? "처음이신가요?" : "?"}</p>
+           {hovered ? "처음이신가요?" : "?"}
           </CircleButton>
           <MapMarker
             position={{
