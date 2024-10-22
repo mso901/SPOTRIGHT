@@ -4,7 +4,7 @@
 ### 1. 프로젝트 소개
 cctv와 보안등의 갯수로 치안 점수를 매겨 내 동네의 치안 점수를 알려주는 서비스입니다. 
 - **기술 스택**
-  - **Front-end**: React, Jotai
+  - **Front-end**: React, Jotai
   - **Back-end**: Node.js, Express.js, MongoDB
   - **데이터 분석**: Python, numpy, pandas
 
