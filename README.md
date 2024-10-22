@@ -3,13 +3,16 @@
 프로젝트 구성 안내
 --
 ### 1. 프로젝트 소개
+--
 cctv와 보안등의 갯수로 치안점수를 매겨 내 동네의 치안 점수를 알려주는 서비스
 
 - 기술 스택
-  - Front-end : React, Jotai
+  - Front-end : React, Jotai
   - Back-end : Node.js, Express.js, MongoDB
   - 데이터 분석 : Python, numpy, pandas
+  - 
 ### 2. 프로젝트 팀원 역할 분담
+--
 이한수
 팀장/백엔드 개발
 
